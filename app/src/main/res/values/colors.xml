@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bg_main">#FBEAF0</color>
+    <color name="title_color">#5D4037</color>
+    <color name="subtitle_color">#FFA000</color>
+    <color name="settings_bg">#FCE4EC</color>
+    <color name="settings_icon">#E91E63</color>
+
+    <color name="btn_animales_start">#F9A8D4</color>
+    <color name="btn_animales_end">#F472B6</color>
+
+    <color name="btn_objetos_start">#D8B4FE</color>
+    <color name="btn_objetos_end">#A78BFA</color>
+
+    <color name="btn_colores_start">#99F6E4</color>
+    <color name="btn_colores_end">#2DD4BF</color>
 </resources>

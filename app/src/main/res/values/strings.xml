@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MemoryPract</string>
+    <string name="category_animales">Animales</string>
+    <string name="category_objetos">Objetos</string>
+    <string name="category_colores">Colores</string>
+    <string name="choose_category">Eligí una categoría</string>
+    <string name="settings_desc">Configuración</string>
 </resources>
