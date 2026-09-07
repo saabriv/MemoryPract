@@ -20,17 +20,15 @@
 
             <!-- Botón configuración -->
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btnSettings"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentTop="true"
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
-                android:layout_margin="24dp"
                 android:background="@drawable/bg_settings_icon"
-                android:src="@drawable/ic_settings"
-                android:padding="14dp"
+                android:src="@drawable/ic_back"
+                android:padding="12dp"
                 android:tint="@color/settings_icon"
-                android:contentDescription="@string/settings_desc" />
+                android:contentDescription="@string/back_desc" />
 
             <!-- Título y subtítulo -->
             <LinearLayout

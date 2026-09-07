@@ -1,5 +1,6 @@
 package com.example.memorypract;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.activity.EdgeToEdge;
@@ -23,5 +24,9 @@ public class AnimalesActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+        findViewById(R.id.btnColores).setOnClickListener(v -> {
+            Intent intent = new Intent(AnimalesActivity.this, ColoresActivity.class);
+            startActivity(intent);
+        });
     }
 }
