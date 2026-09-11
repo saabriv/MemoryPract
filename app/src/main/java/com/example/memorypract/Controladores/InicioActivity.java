@@ -1,4 +1,4 @@
-package com.example.memorypract;
+package com.example.memorypract.Controladores;
 
 import android.os.Bundle;
 
@@ -8,6 +8,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.content.Intent;
+
+import com.example.memorypract.R;
 
 public class InicioActivity extends AppCompatActivity {
 

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemoryPract">
         <activity
-            android:name=".MainActivity"
+            android:name=".Controladores.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -26,15 +26,15 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".InicioActivity"
+            android:name=".Controladores.InicioActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ColoresActivity"
+            android:name=".Controladores.ColoresActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".AnimalesActivity"
+            android:name=".Controladores.AnimalesActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
