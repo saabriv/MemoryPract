@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MemoryPract</string>
+
+    <string name="category_animales">Animals</string>
+    <string name="category_objetos">Objects</string>
+    <string name="category_colores">Colors</string>
+    <string name="choose_category">Choose a category</string>
+    <string name="choose_animal">Choose an animal to remember</string>
+    <string name="settings_desc">Settings</string>
+    <string name="back_desc">Back</string>
+    <string name="memory_app">Memory App</string>
+    <string name="choose_color">Choose a color:</string>
+    <string name="animal_perro">Dog</string>
+    <string name="animal_gato">Cat</string>
+    <string name="animal_conejo">Rabbit</string>
+    <string name="animal_elefante">Elephant</string>
+    <string name="animal_leon">Lion</string>
+    <string name="animal_jirafa">Giraffe</string>
+</resources>
