@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MemoryPract</string>
-
+    <string name="category_animales">Animals</string>
+    <string name="category_objetos">Objects</string>
+    <string name="category_colores">Colors</string>
+    <string name="choose_category">Choose a category</string>
+    <string name="settings_desc">Settings</string>
+    <string name="memory_app">Memory App</string>
+    <string name="choose_color">Choose color:</string>
+    <string name="guess_word">Guess the word:</string>
+    <string name="observe_images">Observe the images:</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_check">Check</string>
+    <string name="correct_word">Correct! You guessed the word.</string>
+    <string name="incorrect_word">Try again.</string>
+    <string name="btn_back_desc">Back</string>
+    <string name="object_img_desc">Object %1$d</string>
 </resources>

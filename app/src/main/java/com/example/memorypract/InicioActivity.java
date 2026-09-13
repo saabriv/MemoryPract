@@ -1,5 +1,6 @@
 package com.example.memorypract;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.content.Intent;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -24,6 +24,11 @@ public class InicioActivity extends AppCompatActivity {
 
         findViewById(R.id.btnColores).setOnClickListener(v -> {
             Intent intent = new Intent(InicioActivity.this, ColoresActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
     }
