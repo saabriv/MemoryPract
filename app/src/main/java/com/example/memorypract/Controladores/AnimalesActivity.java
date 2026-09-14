@@ -33,6 +33,10 @@ public class AnimalesActivity extends AppCompatActivity {
             Intent intent = new Intent(AnimalesActivity.this, ColoresActivity.class);
             startActivity(intent);
         });
+        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Intent intent = new Intent(AnimalesActivity.this, PantallaobjetosActivity.class);
+            startActivity(intent);
+        });
     }
 /*
     @Override

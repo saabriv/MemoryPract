@@ -35,5 +35,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PantallaobjetosActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

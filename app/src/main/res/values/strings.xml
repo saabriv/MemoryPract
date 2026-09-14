@@ -15,4 +15,13 @@
     <string name="animal_elefante">Elefante</string>
     <string name="animal_leon">León</string>
     <string name="animal_jirafa">Jirafa</string>
+
+    <string name="guess_word">Adiviná la palabra:</string>
+    <string name="observe_images">Observá las imágenes:</string>
+    <string name="btn_delete">Borrar</string>
+    <string name="btn_check">Comprobar</string>
+    <string name="correct_word">¡Correcto! Adivinaste la palabra.</string>
+    <string name="incorrect_word">Inténtalo de nuevo.</string>
+    <string name="btn_back_desc">Volver</string>
+    <string name="object_img_desc">Objeto %1$d</string>
 </resources>

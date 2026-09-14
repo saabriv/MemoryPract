@@ -20,6 +20,7 @@ public class ColoresActivity extends AppCompatActivity {
     private int indiceActual = 0;
     private TextView txtColorAdivinar;
     private TextView txtFeedback;
+    private nl.dionsegijn.konfetti.xml.KonfettiView konfettiView;
 
     private void verificarColor(String colorSeleccionado, View borderView) {
         String colorCorrecto = listaColores[indiceActual];
@@ -102,6 +103,11 @@ public class ColoresActivity extends AppCompatActivity {
             Intent intent = new Intent(ColoresActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
+        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Intent intent = new Intent(ColoresActivity.this, PantallaobjetosActivity.class);
+            startActivity(intent);
+        });
+        konfettiView = findViewById(R.id.konfettiView);
 
         findViewById(R.id.card_blue).setOnClickListener(v -> verificarColor("AZUL", findViewById(R.id.border_blue)));
         findViewById(R.id.card_green).setOnClickListener(v -> verificarColor("VERDE", findViewById(R.id.border_green)));
