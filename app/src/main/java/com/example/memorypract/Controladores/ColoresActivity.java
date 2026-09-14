@@ -130,6 +130,10 @@ public class ColoresActivity extends AppCompatActivity {
             Intent intent = new Intent(ColoresActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
+        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Intent intent = new Intent(ColoresActivity.this, PantallaobjetosActivity.class);
+            startActivity(intent);
+        });
         konfettiView = findViewById(R.id.konfettiView);
 
         findViewById(R.id.card_blue).setOnClickListener(v -> verificarColor("AZUL", findViewById(R.id.border_blue)));

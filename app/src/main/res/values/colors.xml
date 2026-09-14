@@ -21,4 +21,9 @@
     <color name="card_teal">#4ADE80</color>
     <color name="card_pink">#F472B6</color>
     <color name="card_purple">#A78BFA</color>
+
+    <color name="btn_key_bg">#EDE9FE</color>
+    <color name="btn_key_text">#6D28D9</color>
+    <color name="letter_slot_bg">#F3E8FF</color>
+    <color name="letter_slot_stroke">#A78BFA</color>
 </resources>
