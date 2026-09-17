@@ -6,20 +6,47 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.memorypract.R;
+//confeti
+import nl.dionsegijn.konfetti.core.Party;
+import nl.dionsegijn.konfetti.core.PartyFactory;
+import nl.dionsegijn.konfetti.core.Position;
+import nl.dionsegijn.konfetti.core.emitter.Emitter;
+import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class ColoresActivity extends AppCompatActivity {
     private final String[] listaColores = {"AZUL", "VERDE", "ROSA", "VIOLETA"};
     private int indiceActual = 0;
     private TextView txtColorAdivinar;
     private TextView txtFeedback;
+
+    private nl.dionsegijn.konfetti.xml.KonfettiView konfettiView;
+
+    private void lanzarConfeti(){
+        int colorAzul = 0xFF60A5FA;
+        int colorVerde = 0xFF4ADE80;
+        int colorRosa = 0xFFF472B6;
+        int colorPurpura = 0xFFA78BFA;
+
+        EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
+        Party party = new PartyFactory(emitterConfig)
+                .angle(270)
+                .spread(90)
+                .position(new Position.Relative(0.5, 0.4))
+                .timeToLive(2000L)
+                .build();
+
+        konfettiView.start(party);
+
+    }
+
 
     private void verificarColor(String colorSeleccionado, View borderView) {
         String colorCorrecto = listaColores[indiceActual];
@@ -30,7 +57,7 @@ public class ColoresActivity extends AppCompatActivity {
             txtFeedback.setText("¡CORRECTO!");
             txtFeedback.setTextColor(0xFF4ADE80); // Verde hex
             txtFeedback.setVisibility(View.VISIBLE);
-
+            lanzarConfeti();
             deshabilitarBotones();
 
             new Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
@@ -106,6 +133,7 @@ public class ColoresActivity extends AppCompatActivity {
             Intent intent = new Intent(ColoresActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
+        konfettiView = findViewById(R.id.konfettiView);
 
         findViewById(R.id.card_blue).setOnClickListener(v -> verificarColor("AZUL", findViewById(R.id.border_blue)));
         findViewById(R.id.card_green).setOnClickListener(v -> verificarColor("VERDE", findViewById(R.id.border_green)));
