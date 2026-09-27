@@ -6,11 +6,13 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.example.memorypract.R;
 //confeti
 import nl.dionsegijn.konfetti.core.Party;
@@ -22,7 +24,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class ColoresActivity extends AppCompatActivity {
-    private final String[] listaColores = {"AZUL", "VERDE", "ROSA", "VIOLETA"};
+    private final String[] listaColores = {"AZUL", "ROSA", "VERDE", "VIOLETA"};
     private int indiceActual = 0;
     private TextView txtColorAdivinar;
     private TextView txtFeedback;
@@ -54,7 +56,7 @@ public class ColoresActivity extends AppCompatActivity {
         if (colorSeleccionado.equals(colorCorrecto)){
             // Mostrar borde verde y texto correcto en pantalla
             borderView.setBackgroundResource(R.drawable.border_correct);
-            txtFeedback.setText("¡CORRECTO!");
+            txtFeedback.setText(R.string.message_correct);
             txtFeedback.setTextColor(0xFF4ADE80); // Verde hex
             txtFeedback.setVisibility(View.VISIBLE);
             lanzarConfeti();
@@ -69,7 +71,7 @@ public class ColoresActivity extends AppCompatActivity {
                 if(indiceActual < listaColores.length){
                     txtColorAdivinar.setText(listaColores[indiceActual]);
                 } else {
-                    Toast.makeText(this, "FELICIDADES COMPLETASTE TODOS LOS COLORES", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.message_complete, Toast.LENGTH_LONG).show();
                     indiceActual = 0;
                     txtColorAdivinar.setText(listaColores[indiceActual]);
                 }

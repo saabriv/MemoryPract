@@ -11,6 +11,8 @@
     <string name="back_desc">Back</string>
     <string name="memory_app">Memory App</string>
     <string name="choose_color">Choose a color:</string>
+    <string name="message_correct">¡Correct!</string>
+    <string name="message_complete">CONGRATULATIONS YOU MATCHED ALL COLORS</string>
     <string name="animal_perro">Dog</string>
     <string name="animal_gato">Cat</string>
     <string name="animal_conejo">Rabbit</string>
