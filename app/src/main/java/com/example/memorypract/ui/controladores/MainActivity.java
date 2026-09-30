@@ -1,4 +1,4 @@
-package com.example.memorypract.Controladores;
+package com.example.memorypract.ui.controladores;
 
 import android.os.Bundle;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnObjetos).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PantallaObjetosActivity.class);
+            Intent intent = new Intent(MainActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
 

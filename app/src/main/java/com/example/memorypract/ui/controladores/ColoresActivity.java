@@ -1,4 +1,4 @@
-package com.example.memorypract.Controladores;
+package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import nl.dionsegijn.konfetti.core.PartyFactory;
 import nl.dionsegijn.konfetti.core.Position;
 import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
-
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class ColoresActivity extends AppCompatActivity {
@@ -132,7 +132,7 @@ public class ColoresActivity extends AppCompatActivity {
             startActivity(intent);
         });
         findViewById(R.id.btnObjetos).setOnClickListener(v -> {
-            Intent intent = new Intent(ColoresActivity.this, PantallaObjetosActivity.class);
+            Intent intent = new Intent(ColoresActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
         konfettiView = findViewById(R.id.konfettiView);

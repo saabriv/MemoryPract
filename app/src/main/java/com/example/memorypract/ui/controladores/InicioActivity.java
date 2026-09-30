@@ -1,4 +1,4 @@
-package com.example.memorypract.Controladores;
+package com.example.memorypract.ui.controladores;
 
 import android.os.Bundle;
 
@@ -7,12 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import android.content.Intent;
 
 import com.example.memorypract.R;
 
-public class MainActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +25,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnColores).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ColoresActivity.class);
+            Intent intent = new Intent(InicioActivity.this, ColoresActivity.class);
             startActivity(intent);
         });
 
         findViewById(R.id.btnAnimales).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AnimalesActivity.class);
+            Intent intent = new Intent(InicioActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
-
-        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PantallaObjetosActivity.class);
-            startActivity(intent);
-        });
-
     }
 }

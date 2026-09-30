@@ -1,4 +1,4 @@
-package com.example.memorypract.Controladores;
+package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.graphics.Typeface;

@@ -1,4 +1,4 @@
-package com.example.memorypract.Controladores;
+package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +34,7 @@ public class AnimalesActivity extends AppCompatActivity {
             startActivity(intent);
         });
         findViewById(R.id.btnObjetos).setOnClickListener(v -> {
-            Intent intent = new Intent(AnimalesActivity.this, PantallaObjetosActivity.class);
+            Intent intent = new Intent(AnimalesActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
     }
