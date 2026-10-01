@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.memorypract.R;
 //confeti
@@ -20,7 +21,9 @@ import nl.dionsegijn.konfetti.core.PartyFactory;
 import nl.dionsegijn.konfetti.core.Position;
 import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
-import java.util.Arrays;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ColoresActivity extends AppCompatActivity {
@@ -80,7 +83,7 @@ public class ColoresActivity extends AppCompatActivity {
         } else {
             // Mostrar borde rojo e incorrecto
             borderView.setBackgroundResource(R.drawable.border_incorrect);
-            txtFeedback.setText("INCORRECTO PRUEBA OTRA VEZ");
+            txtFeedback.setText(R.string.message_incorrect);
             txtFeedback.setTextColor(0xFFF87171); // Rojo hex
             txtFeedback.setVisibility(View.VISIBLE);
 
@@ -95,17 +98,11 @@ public class ColoresActivity extends AppCompatActivity {
     }
 
     private void deshabilitarBotones() {
-        findViewById(R.id.card_blue).setClickable(false);
-        findViewById(R.id.card_green).setClickable(false);
-        findViewById(R.id.card_pink).setClickable(false);
-        findViewById(R.id.card_purple).setClickable(false);
+        findViewById(R.id.rvColores).setClickable(false);
     }
 
     private void habilitarBotones() {
-        findViewById(R.id.card_blue).setClickable(true);
-        findViewById(R.id.card_green).setClickable(true);
-        findViewById(R.id.card_pink).setClickable(true);
-        findViewById(R.id.card_purple).setClickable(true);
+        findViewById(R.id.rvColores).setClickable(true);
     }
 
     @Override
@@ -137,10 +134,16 @@ public class ColoresActivity extends AppCompatActivity {
         });
         konfettiView = findViewById(R.id.konfettiView);
 
-        findViewById(R.id.card_blue).setOnClickListener(v -> verificarColor("AZUL", findViewById(R.id.border_blue)));
-        findViewById(R.id.card_green).setOnClickListener(v -> verificarColor("VERDE", findViewById(R.id.border_green)));
-        findViewById(R.id.card_pink).setOnClickListener(v -> verificarColor("ROSA", findViewById(R.id.border_pink)));
-        findViewById(R.id.card_purple).setOnClickListener(v -> verificarColor("VIOLETA", findViewById(R.id.border_purple)));
+        RecyclerView rvColores = findViewById(R.id.rvColores);
+        List<ColorItem> listaColoresItems = new ArrayList<>();
+        listaColoresItems.add(new ColorItem("AZUL", 0xFF60A5FA));
+        listaColoresItems.add(new ColorItem("VERDE", 0xFF4ADE80));
+        listaColoresItems.add(new ColorItem("ROSA", 0xFFF472B6));
+        listaColoresItems.add(new ColorItem("VIOLETA", 0xFFA78BFA));
 
+        ColorAdapter adapter = new ColorAdapter(listaColoresItems);
+
+// 4. Conectas el adaptador al RecyclerView
+        rvColores.setAdapter(adapter);
     }
 }

@@ -4,18 +4,19 @@ package com.example.memorypract.ui.controladores;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.memorypract.R;
-
+import com.example.memorypract.ui.controladores.ColorItem;
 import java.util.List;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
 
     public interface OnColorClickListener {
-        void onColorClick(ColorItem, colorItem, View borderView);
+        void onColorClick(ColorItem colorItem, View borderView);
     }
     private List<ColorItem> listaColoresItems;
     private OnColorClickListener listener;
@@ -34,7 +35,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ColorViewHolder holder, int position) {
-         ColorItem colorActual = listaColoresItems.get(position);
+        ColorItem colorActual = listaColoresItems.get(position);
         holder.cardColor.setCardBackgroundColor(colorActual.getColorHex());
     }
 

@@ -9,7 +9,8 @@
     <string name="back_desc">Volver</string>
     <string name="memory_app">Memory App</string>
     <string name="choose_color">Elegí el color:</string>
-    <string name="message_correct">¡Correcto!</string>
+    <string name="message_correct">¡CORRECTO!</string>
+    <string name="message_incorrect">INCORRECTO</string>
     <string name="message_complete">FELICIDADES COMPLETASTE TODOS LOS COLORES</string>
     <string name="animal_perro">Perro</string>
     <string name="animal_gato">Gato</string>
