@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.memorypract.R;
-import com.example.memorypract.Controladores.ColorItem;
+import com.example.memorypract.ui.controladores.ColorItem;
 import java.util.List;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {
