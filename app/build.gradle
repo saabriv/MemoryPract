@@ -40,4 +40,8 @@ dependencies {
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
     implementation 'nl.dionsegijn:konfetti-xml:2.0.4'
+    // El motor de Room para que funcione en el celular
+    implementation("androidx.room:room-runtime:2.6.1")
+// El procesador de anotaciones
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
 }
