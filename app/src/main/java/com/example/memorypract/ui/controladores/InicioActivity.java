@@ -1,6 +1,5 @@
-package com.example.memorypract;
+package com.example.memorypract.ui.controladores;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -8,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.content.Intent;
+
+import com.example.memorypract.R;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -27,8 +29,8 @@ public class InicioActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.btnObjetos).setOnClickListener(v -> {
-            Intent intent = new Intent(InicioActivity.this, PantallaobjetosActivity.class);
+        findViewById(R.id.btnAnimales).setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
     }

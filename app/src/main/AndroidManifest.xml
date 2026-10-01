@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemoryPract">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.controladores.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -22,29 +22,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PantallaBloqueoActivity"
+            android:name=".ui.controladores.InicioActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".InicioActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ColoresActivity"
+            android:name=".ui.controladores.ColoresActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".PantallaobjetosActivity"
+            android:name=".ui.controladores.AnimalesActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".PantallaObservarActivity"
+            android:name=".ui.controladores.PantallaobjetosActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.controladores.PantallaObservarActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

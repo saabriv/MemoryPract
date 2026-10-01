@@ -1,5 +1,6 @@
-package com.example.memorypract;
+package com.example.memorypract.ui.controladores;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.memorypract.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,10 +50,20 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         });
 
         // Botón volver
-        ImageButton btnBack = findViewById(R.id.btnBack);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
-        }
+        findViewById(R.id.btnBack).setOnClickListener(v -> {
+            Intent intent = new Intent(PantallaobjetosActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
+        //nav inferior
+        findViewById(R.id.btnAnimales).setOnClickListener(v -> {
+            Intent intent = new Intent(PantallaobjetosActivity.this, AnimalesActivity.class);
+            startActivity(intent);
+        });
+        findViewById(R.id.btnColores).setOnClickListener(v -> {
+            Intent intent = new Intent(PantallaobjetosActivity.this, ColoresActivity.class);
+            startActivity(intent);
+        });
 
         layoutWordSlots = findViewById(R.id.layoutWordSlots);
         gridKeyboard = findViewById(R.id.gridKeyboard);
