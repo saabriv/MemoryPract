@@ -21,6 +21,7 @@ import nl.dionsegijn.konfetti.core.PartyFactory;
 import nl.dionsegijn.konfetti.core.Position;
 import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
+import com.example.memorypract.ui.controladores.ColorItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,11 @@ public class ColoresActivity extends AppCompatActivity {
         listaColoresItems.add(new ColorItem("ROSA", 0xFFF472B6));
         listaColoresItems.add(new ColorItem("VIOLETA", 0xFFA78BFA));
 
-        ColorAdapter adapter = new ColorAdapter(listaColoresItems);
+        ColorAdapter adapter = new ColorAdapter(listaColoresItems, (colorItem, borderView) -> {
+            // Al tocar cualquier tarjeta, se ejecuta verificarColor con su nombre y su borde
+            verificarColor(colorItem.getNombre(), borderView);
+        });
+
 
 // 4. Conectas el adaptador al RecyclerView
         rvColores.setAdapter(adapter);

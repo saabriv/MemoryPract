@@ -21,7 +21,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     private List<ColorItem> listaColoresItems;
     private OnColorClickListener listener;
 
-    public ColorAdapter(List<ColorItem> listaColoresItems) {
+    public ColorAdapter(List<ColorItem> listaColoresItems, OnColorClickListener listener) {
         this.listaColoresItems = listaColoresItems;
         this.listener = listener;
     }
@@ -37,6 +37,11 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     public void onBindViewHolder(@NonNull ColorViewHolder holder, int position) {
         ColorItem colorActual = listaColoresItems.get(position);
         holder.cardColor.setCardBackgroundColor(colorActual.getColorHex());
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onColorClick(colorActual, holder.borderColor);
+            }
+        });
     }
 
     @Override
