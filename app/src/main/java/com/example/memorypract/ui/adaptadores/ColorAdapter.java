@@ -1,4 +1,4 @@
-package com.example.memorypract.ui.controladores;
+package com.example.memorypract.ui.adaptadores;
 
 
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.memorypract.R;
-import com.example.memorypract.ui.controladores.ColorItem;
+import com.example.memorypract.data.modelos.ColorItem;
 import java.util.List;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHolder> {

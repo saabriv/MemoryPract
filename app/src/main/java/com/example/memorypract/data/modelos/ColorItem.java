@@ -1,4 +1,4 @@
-package com.example.memorypract.ui.controladores;
+package com.example.memorypract.data.modelos;
 
 public class ColorItem {
     private String nombre;

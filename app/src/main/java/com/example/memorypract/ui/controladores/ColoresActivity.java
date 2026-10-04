@@ -21,7 +21,8 @@ import nl.dionsegijn.konfetti.core.PartyFactory;
 import nl.dionsegijn.konfetti.core.Position;
 import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
-import com.example.memorypract.ui.controladores.ColorItem;
+import com.example.memorypract.ui.adaptadores.ColorAdapter;
+import com.example.memorypract.data.modelos.ColorItem;
 
 import java.util.ArrayList;
 import java.util.List;

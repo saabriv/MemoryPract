@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.memorypract.R;
+import com.example.memorypract.data.modelos.AnimalItem;
 
 import java.util.ArrayList;
 import java.util.List;
