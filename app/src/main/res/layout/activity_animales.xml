@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -51,26 +52,15 @@
                         app:tint="@color/settings_icon" />
                 </FrameLayout>
 
-                <!--<androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/btnSettings"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/bg_settings_icon"
-                    android:src="@drawable/ic_settings"
-                    android:padding="12dp"
-                    android:tint="@color/settings_icon"
-                    android:contentDescription="@string/settings_desc" />-->
-
             </RelativeLayout>
 
-            <!-- Title and Subtitle -->
+            <!-- Title and Subtitle / Progress -->
             <LinearLayout
                 android:id="@+id/headerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/topBar"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:gravity="center">
 
@@ -78,286 +68,130 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/category_animales"
-                    android:textSize="32sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"
                     android:textColor="@color/title_color" />
 
                 <TextView
+                    android:id="@+id/txtProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@string/choose_animal"
+                    android:text="Animal 1 de 6"
                     android:textSize="16sp"
                     android:textColor="@color/subtitle_color"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <!-- Animals Grid -->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/headerLayout"
-                android:layout_above="@id/bottomNav"
-                android:layout_marginTop="16dp"
-                android:scrollbars="none">
+            <!-- Central Flashcard -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFlashcard"
+                android:layout_width="280dp"
+                android:layout_height="340dp"
+                android:layout_centerInParent="true"
+                app:cardCornerRadius="32dp"
+                app:cardBackgroundColor="#FFF5F7"
+                app:cardElevation="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
-                <GridLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:alignmentMode="alignMargins"
-                    android:columnOrderPreserved="false"
-                    android:padding="8dp">
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
 
-                    <!-- Perro -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
+                    <!-- Front: Animal Image -->
+                    <LinearLayout
+                        android:id="@+id/layoutFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:visibility="visible">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                        <FrameLayout
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bg_settings_icon"
+                            android:backgroundTint="#FCE4EC">
 
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para perro.png -->
-                                <ImageView
-                                    android:id="@+id/imgPerro"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/perro" />
-                            </FrameLayout>
+                            <ImageView
+                                android:id="@+id/imgAnimal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="16dp"
+                                android:src="@drawable/perro"
+                                android:contentDescription="@null" />
+                        </FrameLayout>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_perro"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Toca la tarjeta para ver el nombre"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/subtitle_color"
+                            android:gravity="center" />
+                    </LinearLayout>
 
-                    <!-- Gato -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
+                    <!-- Back: Animal Name and Buttons -->
+                    <LinearLayout
+                        android:id="@+id/layoutBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:visibility="gone">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para gato.png -->
-                                <ImageView
-                                    android:id="@+id/imgGato"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/gato" />
-                            </FrameLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_gato"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Conejo -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
+                        <TextView
+                            android:id="@+id/txtAnimalName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Perro"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/title_color"
+                            android:gravity="center" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="2">
 
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para conejo.png -->
-                                <ImageView
-                                    android:id="@+id/imgConejo"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/conejo" />
-                            </FrameLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <Button
+                                android:id="@+id/btnIncorrecto"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_conejo"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                                android:layout_weight="1"
+                                android:layout_marginEnd="6dp"
+                                android:text="Incorrecto"
+                                android:textColor="#FFFFFF"
+                                android:backgroundTint="#F87171"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
 
-                    <!-- Elefante -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para elefante.png -->
-                                <ImageView
-                                    android:id="@+id/imgElefante"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/elefante" />
-                            </FrameLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <Button
+                                android:id="@+id/btnCorrecto"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_elefante"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
+                                android:layout_weight="1"
+                                android:layout_marginStart="6dp"
+                                android:text="Correcto"
+                                android:textColor="#FFFFFF"
+                                android:backgroundTint="#4ADE80"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </LinearLayout>
 
-                    <!-- León -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para leon.png -->
-                                <ImageView
-                                    android:id="@+id/imgLeon"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/leon" />
-                            </FrameLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_leon"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Jirafa -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="180dp"
-                        android:layout_columnWeight="1"
-                        android:layout_margin="8dp"
-                        app:cardCornerRadius="24dp"
-                        app:cardBackgroundColor="#FFF5F7"
-                        app:cardElevation="0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <FrameLayout
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:background="@drawable/bg_settings_icon"
-                                android:backgroundTint="#FCE4EC">
-                                <!-- Espacio para jirafa.png -->
-                                <ImageView
-                                    android:id="@+id/imgJirafa"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:padding="8dp"
-                                    android:src="@drawable/jirafa" />
-                            </FrameLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:text="@string/animal_jirafa"
-                                android:textSize="18sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/title_color" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                </GridLayout>
-            </ScrollView>
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
 
             <!-- Bottom Navigation -->
             <LinearLayout
