@@ -16,21 +16,18 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.memorypract.R;
 import com.example.memorypract.data.modelos.AnimalItem;
+import com.example.memorypract.ui.viewmodels.AnimalesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalesActivity extends AppCompatActivity {
 
-    private List<AnimalItem> listaAnimales;
-    private int currentIndex = 0;
-    private int correctCount = 0;
-    private int incorrectCount = 0;
-    private boolean isFlipped = false;
-    private boolean isAnimating = false;
+    private AnimalesViewModel viewModel;
 
     private CardView cardFlashcard;
     private LinearLayout layoutFront;
@@ -44,12 +41,14 @@ public class AnimalesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_animales);
-        
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        viewModel = new ViewModelProvider(this).get(AnimalesViewModel.class);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> {
             Intent intent = new Intent(AnimalesActivity.this, MainActivity.class);
@@ -66,8 +65,7 @@ public class AnimalesActivity extends AppCompatActivity {
         });
 
         cardFlashcard = findViewById(R.id.cardFlashcard);
-        
-        // Ajustar la distancia de la cámara para que el giro 3D preserve la forma y tamaño sin deformarse ni agrandarse
+
         float scale = getResources().getDisplayMetrics().density;
         cardFlashcard.setCameraDistance(8000 * scale);
 
@@ -79,48 +77,52 @@ public class AnimalesActivity extends AppCompatActivity {
         Button btnCorrecto = findViewById(R.id.btnCorrecto);
         Button btnIncorrecto = findViewById(R.id.btnIncorrecto);
 
-        listaAnimales = new ArrayList<>();
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_perro), R.drawable.perro));
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_gato), R.drawable.gato));
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_conejo), R.drawable.conejo));
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_elefante), R.drawable.elefante));
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_leon), R.drawable.leon));
-        listaAnimales.add(new AnimalItem(getString(R.string.animal_jirafa), R.drawable.jirafa));
+        List<AnimalItem> lista = new ArrayList<>();
+        lista.add(new AnimalItem(getString(R.string.animal_perro), R.drawable.perro));
+        lista.add(new AnimalItem(getString(R.string.animal_gato), R.drawable.gato));
+        lista.add(new AnimalItem(getString(R.string.animal_conejo), R.drawable.conejo));
+        lista.add(new AnimalItem(getString(R.string.animal_elefante), R.drawable.elefante));
+        lista.add(new AnimalItem(getString(R.string.animal_leon), R.drawable.leon));
+        lista.add(new AnimalItem(getString(R.string.animal_jirafa), R.drawable.jirafa));
 
-        cargarAnimalActual();
+        viewModel.inicializarAnimales(lista);
 
-        // Tocar la tarjeta en el frente para voltearla
+        viewModel.getCurrentIndex().observe(this, index -> actualizarVistaCard());
+        viewModel.isFlipped().observe(this, flipped -> actualizarEstructuraCard(Boolean.TRUE.equals(flipped)));
+
+        viewModel.isGameFinished().observe(this, finished -> {
+            if (Boolean.TRUE.equals(finished)) {
+                mostrarResumenFinal();
+            }
+        });
+
         cardFlashcard.setOnClickListener(v -> {
-            if (isAnimating || isFlipped) return;
+            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue()) || Boolean.TRUE.equals(viewModel.isFlipped().getValue())) return;
             voltearTarjeta();
         });
 
-        // Botón Correcto
         btnCorrecto.setOnClickListener(v -> {
-            if (isAnimating) return;
-            correctCount++;
+            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            viewModel.registrarRespuesta(true);
             Toast.makeText(this, R.string.message_correct, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
         });
 
-        // Botón Incorrecto
         btnIncorrecto.setOnClickListener(v -> {
-            if (isAnimating) return;
-            incorrectCount++;
+            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            viewModel.registrarRespuesta(false);
             Toast.makeText(this, R.string.message_incorrect, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
         });
     }
 
     private void voltearTarjeta() {
-        isAnimating = true;
-        // Giro 3D natural preservando la forma exacta de la tarjeta
+        viewModel.setAnimating(true);
         cardFlashcard.animate()
                 .rotationY(90f)
                 .setDuration(150)
                 .withEndAction(() -> {
-                    isFlipped = true;
-                    updateCardViews();
+                    viewModel.setFlipped(true);
 
                     cardFlashcard.setRotationY(270f);
                     cardFlashcard.animate()
@@ -128,7 +130,7 @@ public class AnimalesActivity extends AppCompatActivity {
                             .setDuration(150)
                             .withEndAction(() -> {
                                 cardFlashcard.setRotationY(0f);
-                                isAnimating = false;
+                                viewModel.setAnimating(false);
                             })
                             .start();
                 })
@@ -136,32 +138,26 @@ public class AnimalesActivity extends AppCompatActivity {
     }
 
     private void avanzarSiguienteTarjeta() {
-        isAnimating = true;
-        // Deslizar la tarjeta actual hacia la IZQUIERDA
+        viewModel.setAnimating(true);
         cardFlashcard.animate()
                 .translationX(-400f)
                 .rotation(-15f)
                 .alpha(0f)
                 .setDuration(220)
                 .withEndAction(() -> {
-                    currentIndex++;
-                    if (currentIndex < listaAnimales.size()) {
-                        isFlipped = false;
-                        updateCardViews();
-                    } else {
-                        isAnimating = false;
-                        mostrarResumenFinal();
+                    viewModel.avanzarTarjeta();
+
+                    if (Boolean.TRUE.equals(viewModel.isGameFinished().getValue())) {
+                        viewModel.setAnimating(false);
                         return;
                     }
 
-                    // Posicionar la nueva tarjeta a la DERECHA para que entre desde la derecha
                     cardFlashcard.setTranslationX(400f);
                     cardFlashcard.setRotation(15f);
                     cardFlashcard.setAlpha(0f);
                     cardFlashcard.setScaleX(0.85f);
                     cardFlashcard.setScaleY(0.85f);
 
-                    // Deslizar la nueva carta al centro suavemente
                     cardFlashcard.animate()
                             .translationX(0f)
                             .rotation(0f)
@@ -169,26 +165,28 @@ public class AnimalesActivity extends AppCompatActivity {
                             .scaleX(1f)
                             .scaleY(1f)
                             .setDuration(280)
-                            .withEndAction(() -> isAnimating = false)
+                            .withEndAction(() -> viewModel.setAnimating(false))
                             .start();
                 }).start();
     }
 
     private void mostrarResumenFinal() {
+        int correctas = viewModel.getCorrectCount().getValue() != null ? viewModel.getCorrectCount().getValue() : 0;
+        int incorrectas = viewModel.getIncorrectCount().getValue() != null ? viewModel.getIncorrectCount().getValue() : 0;
+        List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
+        int total = lista != null ? lista.size() : 0;
+
         String mensaje = "¡Juego completado!\n\n" +
-                "✅ Correctas: " + correctCount + "\n" +
-                "❌ Incorrectas: " + incorrectCount + "\n" +
-                "📊 Total de tarjetas: " + listaAnimales.size();
+                "✅ Correctas: " + correctas + "\n" +
+                "❌ Incorrectas: " + incorrectas + "\n" +
+                "📊 Total de tarjetas: " + total;
 
         new AlertDialog.Builder(this)
                 .setTitle("Resumen de Resultados")
                 .setMessage(mensaje)
                 .setPositiveButton("Volver a intentarlo", (dialog, which) -> {
-                    correctCount = 0;
-                    incorrectCount = 0;
-                    currentIndex = 0;
-                    isFlipped = false;
-                    cargarAnimalActual();
+                    viewModel.reiniciarJuego();
+                    actualizarVistaCard();
                 })
                 .setNegativeButton("Volver al inicio", (dialog, which) -> {
                     Intent intent = new Intent(AnimalesActivity.this, MainActivity.class);
@@ -199,9 +197,19 @@ public class AnimalesActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void cargarAnimalActual() {
-        isFlipped = false;
-        isAnimating = false;
+    private void actualizarVistaCard() {
+        AnimalItem animal = viewModel.getAnimalActual();
+        if (animal == null) return;
+
+        List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
+        Integer index = viewModel.getCurrentIndex().getValue();
+        int currentIndexVal = index != null ? index : 0;
+        int total = lista != null ? lista.size() : 0;
+
+        imgAnimal.setImageResource(animal.getImagenResId());
+        txtAnimalName.setText(animal.getNombre());
+        txtProgress.setText("Animal " + (currentIndexVal + 1) + " de " + total);
+
         if (cardFlashcard != null) {
             cardFlashcard.setRotationY(0f);
             cardFlashcard.setTranslationX(0f);
@@ -210,15 +218,10 @@ public class AnimalesActivity extends AppCompatActivity {
             cardFlashcard.setScaleX(1f);
             cardFlashcard.setScaleY(1f);
         }
-        updateCardViews();
+        actualizarEstructuraCard(Boolean.TRUE.equals(viewModel.isFlipped().getValue()));
     }
 
-    private void updateCardViews() {
-        AnimalItem animal = listaAnimales.get(currentIndex);
-        imgAnimal.setImageResource(animal.getImagenResId());
-        txtAnimalName.setText(animal.getNombre());
-        txtProgress.setText("Animal " + (currentIndex + 1) + " de " + listaAnimales.size());
-
+    private void actualizarEstructuraCard(boolean isFlipped) {
         if (isFlipped) {
             layoutFront.setVisibility(View.GONE);
             layoutBack.setVisibility(View.VISIBLE);

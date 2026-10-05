@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,21 +17,19 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.memorypract.R;
+import com.example.memorypract.ui.viewmodels.ObjetosViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class PantallaobjetosActivity extends AppCompatActivity {
 
-    private String targetWord = "ARBOL";
-    private List<Character> availableLetters;
+    private ObjetosViewModel viewModel;
+
     private TextView[] slotTextViews;
     private Button[] keyButtons;
-    private List<Integer> selectedKeyIndices;
 
     private LinearLayout layoutWordSlots;
     private GridLayout gridKeyboard;
@@ -49,17 +46,19 @@ public class PantallaobjetosActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Botón volver
+        viewModel = new ViewModelProvider(this).get(ObjetosViewModel.class);
+
         findViewById(R.id.btnBack).setOnClickListener(v -> {
             Intent intent = new Intent(PantallaobjetosActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
-        //nav inferior
+
         findViewById(R.id.btnAnimales).setOnClickListener(v -> {
             Intent intent = new Intent(PantallaobjetosActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
+
         findViewById(R.id.btnColores).setOnClickListener(v -> {
             Intent intent = new Intent(PantallaobjetosActivity.this, ColoresActivity.class);
             startActivity(intent);
@@ -67,76 +66,73 @@ public class PantallaobjetosActivity extends AppCompatActivity {
 
         layoutWordSlots = findViewById(R.id.layoutWordSlots);
         gridKeyboard = findViewById(R.id.gridKeyboard);
-        selectedKeyIndices = new ArrayList<>();
 
-        // Si se pasa una palabra desde otra pantalla o nivel, se recibe por Intent
+        String initialWord = "ARBOL";
         if (getIntent() != null && getIntent().hasExtra("WORD")) {
             String wordFromIntent = getIntent().getStringExtra("WORD");
             if (wordFromIntent != null && !wordFromIntent.trim().isEmpty()) {
-                targetWord = wordFromIntent.trim().toUpperCase();
+                initialWord = wordFromIntent.trim().toUpperCase();
             }
         }
+        viewModel.loadWord(initialWord);
 
-        // Cargar la palabra y generar las casillas y letras correspondientes
-        loadWord(targetWord);
+        viewModel.getAvailableLetters().observe(this, letters -> {
+            if (letters != null && !letters.isEmpty()) {
+                setupKeyboard(letters);
+            }
+        });
 
+        viewModel.getSlotLetters().observe(this, slots -> {
+            if (slots != null) {
+                updateSlotViews(slots);
+            }
+        });
+
+        viewModel.getSelectedKeyIndices().observe(this, selectedIndices -> {
+            if (keyButtons == null || selectedIndices == null) return;
+            for (int i = 0; i < keyButtons.length; i++) {
+                if (keyButtons[i] != null) {
+                    keyButtons[i].setVisibility(selectedIndices.contains(i) ? View.INVISIBLE : View.VISIBLE);
+                }
+            }
+        });
+
+        viewModel.getCheckResultEvent().observe(this, isCorrect -> {
+            if (isCorrect == null) return;
+            if (isCorrect) {
+                Toast.makeText(this, R.string.correct_word, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.incorrect_word, Toast.LENGTH_SHORT).show();
+            }
+            viewModel.clearCheckResultEvent();
+        });
 
         Button btnDelete = findViewById(R.id.btnDelete);
         if (btnDelete != null) {
-            btnDelete.setOnClickListener(v -> deleteLastLetter());
+            btnDelete.setOnClickListener(v -> viewModel.deleteLastLetter());
         }
 
         Button btnCheck = findViewById(R.id.btnCheck);
         if (btnCheck != null) {
-            btnCheck.setOnClickListener(v -> checkWord());
+            btnCheck.setOnClickListener(v -> viewModel.checkWord());
         }
     }
 
-    /**
-     * Carga cualquier palabra y genera dinámicamente:
-     * 1. La cantidad exacta de cuadritos (slots) que tiene la palabra.
-     * 2. El teclado de letras (las letras de la palabra + distractores).
-     */
-    public void loadWord(String word) {
-        if (word == null || word.isEmpty()) return;
-
-        this.targetWord = word.toUpperCase();
-        selectedKeyIndices.clear();
-
-        generateAvailableLetters();
-        setupWordSlots();
-        setupKeyboard();
+    private void updateSlotViews(List<String> slots) {
+        if (slotTextViews == null || slotTextViews.length != slots.size()) {
+            setupWordSlots(slots.size());
+        }
+        for (int i = 0; i < slots.size(); i++) {
+            if (slotTextViews[i] != null) {
+                slotTextViews[i].setText(slots.get(i));
+            }
+        }
     }
 
-    private void generateAvailableLetters() {
-        availableLetters = new ArrayList<>();
-
-        // 1. Agregar todas las letras de la palabra objetivo
-        for (char c : targetWord.toCharArray()) {
-            availableLetters.add(c);
-        }
-
-        // 2. Definir cantidad total de teclas (12 o 14 según la longitud)
-        int totalTargetKeys = targetWord.length() > 6 ? 14 : 12;
-
-        // 3. Rellenar con letras aleatorias hasta alcanzar el total
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random random = new Random();
-        while (availableLetters.size() < totalTargetKeys) {
-            char randomChar = alphabet.charAt(random.nextInt(alphabet.length()));
-            availableLetters.add(randomChar);
-        }
-
-        // 4. Mezclar las letras aleatoriamente
-        Collections.shuffle(availableLetters);
-    }
-
-    private void setupWordSlots() {
+    private void setupWordSlots(int length) {
         layoutWordSlots.removeAllViews();
-        int length = targetWord.length(); // Genera exactamente tantas casillas como letras tenga la palabra
         slotTextViews = new TextView[length];
 
-        // Ajustar tamaño según la cantidad de letras para que siempre quepan bien en pantalla
         int sizeInDp = length > 7 ? 34 : (length > 5 ? 38 : 44);
         int density = (int) getResources().getDisplayMetrics().density;
         int sizePx = sizeInDp * density;
@@ -159,7 +155,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         }
     }
 
-    private void setupKeyboard() {
+    private void setupKeyboard(List<Character> availableLetters) {
         gridKeyboard.removeAllViews();
         int totalKeys = availableLetters.size();
         int columns = totalKeys >= 14 ? 7 : 6;
@@ -187,50 +183,10 @@ public class PantallaobjetosActivity extends AppCompatActivity {
             button.setTypeface(null, Typeface.BOLD);
             button.setPadding(0, 0, 0, 0);
 
-            button.setOnClickListener(v -> onKeyClick(index));
+            button.setOnClickListener(v -> viewModel.onKeyClick(index));
 
             keyButtons[i] = button;
             gridKeyboard.addView(button);
-        }
-    }
-
-    private void onKeyClick(int keyIndex) {
-        // Buscar la primera casilla libre
-        for (TextView slot : slotTextViews) {
-            if (slot.getText().toString().isEmpty()) {
-                slot.setText(String.valueOf(availableLetters.get(keyIndex)));
-                keyButtons[keyIndex].setVisibility(View.INVISIBLE);
-                selectedKeyIndices.add(keyIndex);
-                break;
-            }
-        }
-    }
-
-    private void deleteLastLetter() {
-        if (!selectedKeyIndices.isEmpty()) {
-            int lastKeyIndex = selectedKeyIndices.remove(selectedKeyIndices.size() - 1);
-            keyButtons[lastKeyIndex].setVisibility(View.VISIBLE);
-
-            // Borrar la última casilla que tenga letra
-            for (int i = slotTextViews.length - 1; i >= 0; i--) {
-                if (!slotTextViews[i].getText().toString().isEmpty()) {
-                    slotTextViews[i].setText("");
-                    break;
-                }
-            }
-        }
-    }
-
-    private void checkWord() {
-        StringBuilder currentGuess = new StringBuilder();
-        for (TextView tv : slotTextViews) {
-            currentGuess.append(tv.getText().toString());
-        }
-
-        if (currentGuess.toString().equalsIgnoreCase(targetWord)) {
-            Toast.makeText(this, R.string.correct_word, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, R.string.incorrect_word, Toast.LENGTH_SHORT).show();
         }
     }
 }
