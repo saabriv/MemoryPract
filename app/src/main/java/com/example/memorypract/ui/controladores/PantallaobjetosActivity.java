@@ -20,8 +20,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.memorypract.R;
+import com.example.memorypract.data.modelos.AnimalItem;
 import com.example.memorypract.ui.viewmodels.ObjetosViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PantallaobjetosActivity extends AppCompatActivity {
@@ -67,6 +69,13 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         layoutWordSlots = findViewById(R.id.layoutWordSlots);
         gridKeyboard = findViewById(R.id.gridKeyboard);
 
+        /*List<AnimalItem> lista = new ArrayList<>();
+        lista.add(new AnimalItem(getString(R.string.animal_perro), R.drawable.perro));
+        lista.add(new AnimalItem(getString(R.string.animal_gato), R.drawable.gato));
+        lista.add(new AnimalItem(getString(R.string.animal_conejo), R.drawable.conejo));
+        lista.add(new AnimalItem(getString(R.string.animal_elefante), R.drawable.elefante));
+        lista.add(new AnimalItem(getString(R.string.animal_leon), R.drawable.leon));
+        lista.add(new AnimalItem(getString(R.string.animal_jirafa), R.drawable.jirafa));*/
         String initialWord = "ARBOL";
         if (getIntent() != null && getIntent().hasExtra("WORD")) {
             String wordFromIntent = getIntent().getStringExtra("WORD");
@@ -74,6 +83,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
                 initialWord = wordFromIntent.trim().toUpperCase();
             }
         }
+
         viewModel.loadWord(initialWord);
 
         viewModel.getAvailableLetters().observe(this, letters -> {

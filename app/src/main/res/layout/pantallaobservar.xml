@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_main"
-    tools:context=".PantallaObservarActivity">
+    tools:context=".ui.controladores.PantallaObservarActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -106,63 +106,6 @@
                                 android:scaleType="centerCrop"
                                 android:padding="10dp"
                                 android:src="@drawable/foto_alumnos_jpg"
-                                android:contentDescription="@string/category_objetos" />
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Imagen 2 -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_margin="8dp"
-                            app:cardCornerRadius="24dp"
-                            app:cardBackgroundColor="@color/letter_slot_bg"
-                            app:cardElevation="4dp">
-
-                            <ImageView
-                                android:id="@+id/img2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:padding="10dp"
-                                android:src="@drawable/foto_cartuchera_jpg"
-                                android:contentDescription="@string/category_objetos" />
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Imagen 3 -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_margin="8dp"
-                            app:cardCornerRadius="24dp"
-                            app:cardBackgroundColor="@color/letter_slot_bg"
-                            app:cardElevation="4dp">
-
-                            <ImageView
-                                android:id="@+id/img3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:padding="10dp"
-                                android:src="@drawable/foto_pizarron_jpg"
-                                android:contentDescription="@string/category_objetos" />
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Imagen 4 -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_margin="8dp"
-                            app:cardCornerRadius="24dp"
-                            app:cardBackgroundColor="@color/letter_slot_bg"
-                            app:cardElevation="4dp">
-
-                            <ImageView
-                                android:id="@+id/img4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:padding="10dp"
-                                android:src="@drawable/foto_profesor_jpg"
                                 android:contentDescription="@string/category_objetos" />
                         </androidx.cardview.widget.CardView>
 
