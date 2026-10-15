@@ -10,79 +10,156 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="6dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="#FFFFFF">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:padding="24dp">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/memory_app"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/title_color" />
+            <!-- Botón configuración / ajustes -->
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnSettings"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/bg_settings_icon"
+                android:src="@drawable/ic_settings"
+                android:padding="14dp"
+                android:tint="@color/settings_icon"
+                android:contentDescription="@string/settings_desc" />
 
-            <TextView
-                android:id="@+id/tvSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Ingresá tus datos para jugar"
-                android:textSize="16sp"
-                android:textColor="@color/subtitle_color" />
-
-            <com.google.android.material.textfield.TextInputLayout
+            <!-- Contenedor central -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:hint="Nombre completo"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="24dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etNombre"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="@string/memory_app"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="Correo electrónico"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etCorreo"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvSubtitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="6dp"
+                    android:text="Inicio de Sesión"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/subtitle_color" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="24dp"
-                android:text="Ingresar"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:cornerRadius="28dp"
-                app:backgroundTint="@color/card_pink" />
+                <!-- Campo Email -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/bg_input_field"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp">
 
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_person"
+                        app:tint="@color/btn_animales_end"
+                        android:contentDescription="Email icon" />
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="12dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Campo Contraseña -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_input_field"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_lock"
+                        app:tint="@color/btn_animales_end"
+                        android:contentDescription="Password icon" />
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:paddingStart="12dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Botón ENTRAR -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_gradient_button"
+                    app:backgroundTint="@null"
+                    android:text="ENTRAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    app:cornerRadius="28dp"
+                    android:elevation="4dp" />
+
+                <!-- Links inferiores -->
+                <TextView
+                    android:id="@+id/tvForgot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="#4B5563"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="¿Aún no tienes cuenta? Regístrate"
+                    android:textColor="#4B5563"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

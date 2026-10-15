@@ -18,8 +18,7 @@ import com.example.memorypract.ui.viewmodels.LoginViewModel;
 public class login extends AppCompatActivity {
 
     private LoginViewModel viewModel;
-    private EditText etNombre;
-    private EditText etCorreo;
+    private EditText etEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +34,11 @@ public class login extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        etNombre = findViewById(R.id.etNombre);
-        etCorreo = findViewById(R.id.etCorreo);
+        etEmail = findViewById(R.id.etEmail);
 
         findViewById(R.id.btnLogin).setOnClickListener(v -> {
-            String nombre = etNombre.getText() != null ? etNombre.getText().toString() : "";
-            String correo = etCorreo.getText() != null ? etCorreo.getText().toString() : "";
-            viewModel.iniciarSesionOCrear(nombre, correo);
+            String correo = etEmail.getText() != null ? etEmail.getText().toString() : "";
+            viewModel.iniciarSesionOCrear(correo, correo);
         });
 
         viewModel.getLoginResult().observe(this, mensaje -> {

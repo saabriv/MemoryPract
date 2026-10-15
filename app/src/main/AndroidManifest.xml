@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MemoryPract">
         <activity
-            android:name=".ui.controladores.MainActivity"
+            android:name=".ui.controladores.login"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -20,6 +20,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.controladores.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".ui.controladores.InicioActivity"
@@ -39,10 +44,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.controladores.PantallaObservarActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.controladores.login"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
