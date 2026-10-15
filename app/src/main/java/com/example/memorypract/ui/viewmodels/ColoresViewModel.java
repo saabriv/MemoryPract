@@ -9,12 +9,13 @@ import com.example.memorypract.utils.GameConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ColoresViewModel extends ViewModel {
-    private final String[] listaColores = GameConstants.LISTA_COLORES;
 
-    private final MutableLiveData<Integer> _indiceActual = new MutableLiveData<>(0);
-    public LiveData<Integer> getIndiceActual() { return _indiceActual; }
+    private final List<ColorItem> todosLosColores = new ArrayList<>();
+
+    private final MutableLiveData<Integer> _tandaActual = new MutableLiveData<>(0);
 
     private final MutableLiveData<String> _colorToGuess = new MutableLiveData<>();
     public LiveData<String> getColorToGuess() { return _colorToGuess; }
@@ -22,7 +23,50 @@ public class ColoresViewModel extends ViewModel {
     private final MutableLiveData<List<ColorItem>> _colorItems = new MutableLiveData<>();
     public LiveData<List<ColorItem>> getColorItems() { return _colorItems; }
 
-    public static class VerificationResult {
+    public void verificarColor(String colorSeleccionado) {
+        if (Boolean.TRUE.equals(_isProcessing.getValue())) {
+            return;
+        }
+
+        String colorCorrecto = _colorToGuess.getValue();
+       boolean esCorrecto = colorSeleccionado.equals(colorCorrecto);
+
+        _isProcessing.setValue(true);
+
+        if (esCorrecto) {
+            Integer tanda = _tandaActual.getValue();
+            if(tanda == null) tanda = 0;
+            int tamanoTanda = 4;
+            boolean esUltimaTanda = (tanda + 1) * tamanoTanda >= todosLosColores.size();
+            _verificationEvent.setValue(new VerificationResult(colorSeleccionado, true, esUltimaTanda));
+        } else {
+            _verificationEvent.setValue(new VerificationResult(colorSeleccionado, false, false));
+        }
+    }
+
+    public void finalizarVerificacion(boolean fueCorrecto) {
+        _isProcessing.setValue(false);
+        if (fueCorrecto) {
+            Integer tanda = _tandaActual.getValue();
+            if (tanda == null) tanda = 0;
+            int siguienteTanda =tanda + 1;
+            int tamanoTanda = 4;
+
+            if (siguienteTanda * tamanoTanda >= todosLosColores.size()){
+                siguienteTanda = 0;
+            }
+            _tandaActual.setValue(siguienteTanda);
+            cargarTandaActual();
+        }
+    }
+
+    public void reiniciar() {
+        _tandaActual.setValue(0);
+        _isProcessing.setValue(false);
+        cargarTandaActual();
+    }
+
+    public  class VerificationResult {
         public final String colorSeleccionado;
         public final boolean isCorrect;
         public final boolean isCompleted;
@@ -41,73 +85,45 @@ public class ColoresViewModel extends ViewModel {
     public LiveData<Boolean> getIsProcessing() { return _isProcessing; }
 
     public ColoresViewModel() {
+
         initGame();
     }
 
     public void initGame() {
-        List<ColorItem> items = new ArrayList<>();
-        items.add(new ColorItem("AZUL", GameConstants.COLOR_AZUL));
-        items.add(new ColorItem("VERDE", GameConstants.COLOR_VERDE));
-        items.add(new ColorItem("ROSA", GameConstants.COLOR_ROSA));
-        items.add(new ColorItem("VIOLETA", GameConstants.COLOR_VIOLETA));
-        _colorItems.setValue(items);
+        todosLosColores.clear();
+        todosLosColores.add(new ColorItem("AZUL", GameConstants.COLOR_AZUL));
+        todosLosColores.add(new ColorItem("VERDE", GameConstants.COLOR_VERDE));
+        todosLosColores.add(new ColorItem("ROSA", GameConstants.COLOR_ROSA));
+        todosLosColores.add(new ColorItem("VIOLETA", GameConstants.COLOR_VIOLETA));
+        todosLosColores.add(new ColorItem("ROJO", GameConstants.COLOR_ROJO));
+        todosLosColores.add(new ColorItem("NARANJA", GameConstants.COLOR_NARANJA));
+        todosLosColores.add(new ColorItem("MARRON", GameConstants.COLOR_MARRON));
+        todosLosColores.add(new ColorItem("AZUL OSCURO", GameConstants.COLOR_AZUL_OSCURO));
 
-        if (_indiceActual.getValue() == null) {
-            _indiceActual.setValue(0);
-        }
-        updateColorToGuess();
+        _tandaActual.setValue(0);
+        cargarTandaActual();
     }
 
-    private void updateColorToGuess() {
-        Integer index = _indiceActual.getValue();
-        if (index != null && index >= 0 && index < listaColores.length) {
-            _colorToGuess.setValue(listaColores[index]);
-        }
-    }
+    private void cargarTandaActual() {
+        Integer tanda = _tandaActual.getValue();
+        if (tanda == null) tanda = 0;
 
-    public void verificarColor(String colorSeleccionado) {
-        if (Boolean.TRUE.equals(_isProcessing.getValue())) {
+        int tamanoTanda = 4;
+        int inicio = tanda * tamanoTanda;
+        int fin = Math.min(inicio + tamanoTanda, todosLosColores.size());
+
+        if (inicio >= todosLosColores.size()) {
+            _tandaActual.setValue(0);
+            cargarTandaActual();
             return;
         }
 
-        Integer index = _indiceActual.getValue();
-        if (index == null) index = 0;
+        List<ColorItem> sublistaTanda = new ArrayList<>(todosLosColores.subList(inicio,fin));
+        _colorItems.setValue(sublistaTanda);
 
-        String colorCorrecto = listaColores[index];
-        boolean esCorrecto = colorSeleccionado.equals(colorCorrecto);
-
-        _isProcessing.setValue(true);
-
-        if (esCorrecto) {
-            int siguienteIndice = index + 1;
-            boolean completado = siguienteIndice >= listaColores.length;
-            _verificationEvent.setValue(new VerificationResult(colorSeleccionado, true, completado));
-        } else {
-            _verificationEvent.setValue(new VerificationResult(colorSeleccionado, false, false));
+        Random random = new Random();
+        ColorItem elegido = sublistaTanda.get(random.nextInt(sublistaTanda.size()));
+        _colorToGuess.setValue(elegido.getNombre());
         }
     }
 
-    public void finalizarVerificacion(boolean fueCorrecto) {
-        _isProcessing.setValue(false);
-        if (fueCorrecto) {
-            Integer index = _indiceActual.getValue();
-            if (index == null) index = 0;
-            int siguienteIndice = index + 1;
-            if (siguienteIndice >= listaColores.length) {
-                siguienteIndice = 0;
-            }
-            _indiceActual.setValue(siguienteIndice);
-            updateColorToGuess();
-        }
-    }
-
-    public void reiniciar() {
-        _indiceActual.setValue(0);
-        _isProcessing.setValue(false);
-        updateColorToGuess();
-    }
-
-    public int getTotalColores() {
-        return listaColores.length;
-    }
-}
