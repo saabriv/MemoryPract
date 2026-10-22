@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.memorypract.R;
 import com.example.memorypract.ui.viewmodels.LoginViewModel;
 
-public class login extends AppCompatActivity {
+public class login extends BaseActivity {
 
     private LoginViewModel viewModel;
     private EditText etEmail;

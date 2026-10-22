@@ -11,7 +11,7 @@ import android.content.Intent;
 
 import com.example.memorypract.R;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

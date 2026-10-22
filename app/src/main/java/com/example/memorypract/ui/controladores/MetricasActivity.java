@@ -21,7 +21,7 @@ import com.example.memorypract.R;
 import com.example.memorypract.data.modelos.MetricasData;
 import com.example.memorypract.ui.viewmodels.MetricasViewModel;
 
-public class MetricasActivity extends AppCompatActivity {
+public class MetricasActivity extends BaseActivity {
 
     private MetricasViewModel viewModel;
 

@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.memorypract.R;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-public class ConfiguracionActivity extends AppCompatActivity {
+public class ConfiguracionActivity extends BaseActivity {
 
     private TextView btnTextPequeno;
     private TextView btnTextMediano;
@@ -80,12 +80,15 @@ public class ConfiguracionActivity extends AppCompatActivity {
         switchModoOscuro.setOnCheckedChangeListener((buttonView, isChecked) -> updateDarkModeIcon(isChecked));
 
         findViewById(R.id.btnGuardar).setOnClickListener(v -> {
+            boolean modoOscuro = switchModoOscuro.isChecked();
             SharedPreferences prefs = getSharedPreferences("MemoryAppPrefs", MODE_PRIVATE);
             prefs.edit()
                     .putString("TEXT_SIZE", selectedTextSize)
-                    .putBoolean("MODO_OSCURO", switchModoOscuro.isChecked())
+                    .putBoolean("MODO_OSCURO", modoOscuro)
                     .putBoolean("RECORDATORIOS", switchRecordatorios.isChecked())
                     .apply();
+
+            com.example.memorypract.utils.ThemeUtils.setDarkMode(modoOscuro);
 
             Toast.makeText(ConfiguracionActivity.this, "Configuración guardada y aplicada", Toast.LENGTH_SHORT).show();
             finish();

@@ -25,7 +25,7 @@ import com.example.memorypract.ui.viewmodels.AnimalesViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalesActivity extends AppCompatActivity {
+public class AnimalesActivity extends BaseActivity {
 
     private AnimalesViewModel viewModel;
 

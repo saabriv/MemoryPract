@@ -26,7 +26,7 @@ import com.example.memorypract.ui.viewmodels.ObjetosViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PantallaobjetosActivity extends AppCompatActivity {
+public class PantallaobjetosActivity extends BaseActivity {
 
     private ObjetosViewModel viewModel;
 

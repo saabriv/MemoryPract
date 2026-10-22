@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.memorypract.R;
 
-public class PantallaObservarActivity extends AppCompatActivity {
+public class PantallaObservarActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

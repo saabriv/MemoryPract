@@ -28,7 +28,7 @@ import nl.dionsegijn.konfetti.core.emitter.Emitter;
 import nl.dionsegijn.konfetti.core.emitter.EmitterConfig;
 import nl.dionsegijn.konfetti.xml.KonfettiView;
 
-public class ColoresActivity extends AppCompatActivity {
+public class ColoresActivity extends BaseActivity {
 
     private ColoresViewModel viewModel;
     private TextView txtColorAdivinar;
