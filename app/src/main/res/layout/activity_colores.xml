@@ -13,7 +13,7 @@
         android:layout_margin="16dp"
         app:cardCornerRadius="40dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#FFFFFF">
+        app:cardBackgroundColor="@color/card_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"

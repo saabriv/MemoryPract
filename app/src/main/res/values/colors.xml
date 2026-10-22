@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bg_main">#FBEAF0</color>
+    <color name="card_bg">#FFFFFF</color>
     <color name="title_color">#5D4037</color>
     <color name="subtitle_color">#FFA000</color>
     <color name="settings_bg">#FCE4EC</color>
@@ -25,7 +26,6 @@
     <color name="card_red">#F70D1A</color>
     <color name="card_brown">#641D12</color>
     <color name="card_dark_blue">#000482</color>
-
 
     <color name="btn_key_bg">#EDE9FE</color>
     <color name="btn_key_text">#6D28D9</color>
