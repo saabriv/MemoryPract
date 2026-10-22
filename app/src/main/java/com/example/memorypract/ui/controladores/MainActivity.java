@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        findViewById(R.id.btnSettings).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ConfiguracionActivity.class);
+            startActivity(intent);
+        });
+
         findViewById(R.id.btnColores).setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ColoresActivity.class);
             startActivity(intent);

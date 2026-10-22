@@ -2,6 +2,7 @@ package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +36,14 @@ public class login extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         etEmail = findViewById(R.id.etEmail);
+
+        View btnSettings = findViewById(R.id.btnSettings);
+        if (btnSettings != null) {
+            btnSettings.setOnClickListener(v -> {
+                Intent intent = new Intent(login.this, ConfiguracionActivity.class);
+                startActivity(intent);
+            });
+        }
 
         findViewById(R.id.btnLogin).setOnClickListener(v -> {
             String correo = etEmail.getText() != null ? etEmail.getText().toString() : "";
