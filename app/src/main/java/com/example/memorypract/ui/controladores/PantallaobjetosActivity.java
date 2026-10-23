@@ -177,7 +177,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
     private void mostrarResumenFinal() {
         int correctas = viewModel.getCorrectCount().getValue() != null ? viewModel.getCorrectCount().getValue() : 0;
         int incorrectas = viewModel.getIncorrectCount().getValue() != null ? viewModel.getIncorrectCount().getValue() : 0;
-        List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
+        List<ObjetoItem> lista = viewModel.getListaObjetos().getValue();
         int total = lista != null ? lista.size() : 0;
 
         String mensaje = "¡Juego completado!\n\n" +
@@ -193,7 +193,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
                     actualizarVistaCard();
                 })
                 .setNegativeButton("Volver al inicio", (dialog, which) -> {
-                    Intent intent = new Intent(AnimalesActivity.this, MainActivity.class);
+                    Intent intent = new Intent(PantallaobjetosActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 })
@@ -202,17 +202,17 @@ public class PantallaobjetosActivity extends AppCompatActivity {
     }
 
     private void actualizarVistaCard() {
-        AnimalItem animal = viewModel.getAnimalActual();
-        if (animal == null) return;
+        ObjetoItem objeto = viewModel.getObjetoActual();
+        if (objeto == null) return;
 
-        List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
+        List<ObjetoItem> lista = viewModel.getListaObjetos().getValue();
         Integer index = viewModel.getCurrentIndex().getValue();
         int currentIndexVal = index != null ? index : 0;
         int total = lista != null ? lista.size() : 0;
 
-        imgAnimal.setImageResource(animal.getImagenResId());
-        txtAnimalName.setText(animal.getNombre());
-        txtProgress.setText("Animal " + (currentIndexVal + 1) + " de " + total);
+        imgObjeto.setImageResource(objeto.getImagenResId());
+        txtObjetoName.setText(objeto.getNombre());
+        txtProgress.setText("Objeto " + (currentIndexVal + 1) + " de " + total);
 
         if (cardFlashcard != null) {
             cardFlashcard.setRotationY(0f);

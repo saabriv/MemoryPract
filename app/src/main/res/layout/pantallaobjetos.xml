@@ -53,6 +53,34 @@
                 </FrameLayout>
 
             </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/topBar"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_objetos"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_color" />
+
+                <TextView
+                    android:id="@+id/txtProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Objeto 1 de 6"
+                    android:textSize="16sp"
+                    android:textColor="@color/subtitle_color"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <!-- ScrollView para asegurar legibilidad en todas las pantallas -->
             <androidx.cardview.widget.CardView
