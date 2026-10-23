@@ -18,158 +18,150 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
 
-            <!-- Botón Volver -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="20dp"
-                android:background="@drawable/bg_settings_icon"
-                android:src="@drawable/ic_arrow_back"
-                android:padding="14dp"
-                android:tint="@color/settings_icon"
-                android:contentDescription="@string/btn_back_desc" />
-
-            <!-- Título y Subtítulo -->
-            <LinearLayout
-                android:id="@+id/headerLayout"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/topBar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="32dp"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_marginTop="8dp">
 
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/memory_app"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/title_color" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/bg_settings_icon"
+                    android:src="@drawable/ic_back"
+                    android:padding="12dp"
+                    android:tint="@color/settings_icon"
+                    android:contentDescription="@string/back_desc" />
 
-                <TextView
-                    android:id="@+id/tvSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@string/guess_word"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/subtitle_color" />
+                <FrameLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_settings_icon">
 
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_shapes"
+                        app:tint="@color/settings_icon" />
+                </FrameLayout>
+
+            </RelativeLayout>
 
             <!-- ScrollView para asegurar legibilidad en todas las pantallas -->
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/headerLayout"
-                android:layout_marginTop="16dp"
-                android:fillViewport="true">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFlashcard"
+                android:layout_width="280dp"
+                android:layout_height="340dp"
+                android:layout_centerInParent="true"
+                app:cardCornerRadius="32dp"
+                app:cardBackgroundColor="#FFF5F7"
+                app:cardElevation="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingBottom="24dp">
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
 
-                    <!-- Grid de 4 Imágenes (2x2) -->
-                    <GridLayout
-                        android:id="@+id/gridImages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:columnCount="2"
-                        android:rowCount="2"
-                        android:alignmentMode="alignMargins">
+                    <!-- Front: Animal Image -->
+                    <LinearLayout
+                        android:id="@+id/layoutFront"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:visibility="visible">
 
-                        <!-- Imagen 1 -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:layout_margin="8dp"
-                            app:cardCornerRadius="24dp"
-                            app:cardBackgroundColor="@color/letter_slot_bg"
-                            app:cardElevation="4dp">
+                        <FrameLayout
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:background="@drawable/bg_settings_icon"
+                            android:backgroundTint="#FCE4EC">
 
                             <ImageView
-                                android:id="@+id/img1"
+                                android:id="@+id/imgObjeto"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:padding="20dp"
+                                android:padding="16dp"
                                 android:src="@drawable/foto_tronco_jpg"
-                                android:contentDescription="@string/category_objetos" />
-                        </androidx.cardview.widget.CardView>
+                                android:contentDescription="@null" />
+                        </FrameLayout>
 
-
-                    </GridLayout>
-
-                    <!-- Casillas para adivinar la palabra -->
-                    <LinearLayout
-                        android:id="@+id/layoutWordSlots"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="horizontal"
-                        android:gravity="center" />
-
-                    <!-- Teclado de letras disponibles -->
-                    <GridLayout
-                        android:id="@+id/gridKeyboard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:columnCount="6"
-                        android:gravity="center" />
-
-                    <!-- Botones de Acción: Borrar y Comprobar -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnDelete"
-                            android:layout_width="130dp"
-                            android:layout_height="54dp"
-                            android:layout_marginEnd="16dp"
-                            android:text="@string/btn_delete"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Toca la tarjeta para ver el nombre"
+                            android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textAllCaps="false"
-                            app:backgroundTint="@color/card_pink"
-                            app:cornerRadius="27dp"
-                            android:elevation="4dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnCheck"
-                            android:layout_width="140dp"
-                            android:layout_height="54dp"
-                            android:text="@string/btn_check"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textAllCaps="false"
-                            app:backgroundTint="@color/btn_objetos_end"
-                            app:cornerRadius="27dp"
-                            android:elevation="4dp" />
-
+                            android:textColor="@color/subtitle_color"
+                            android:gravity="center" />
                     </LinearLayout>
 
-                </LinearLayout>
+                    <!-- Back: Animal Name and Buttons -->
+                    <LinearLayout
+                        android:id="@+id/layoutBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:visibility="gone">
 
-            </ScrollView>
+                        <TextView
+                            android:id="@+id/txtObjetoName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tronco"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/title_color"
+                            android:gravity="center" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:weightSum="2">
+
+                            <Button
+                                android:id="@+id/btnIncorrecto"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="6dp"
+                                android:text="Incorrecto"
+                                android:textColor="#FFFFFF"
+                                android:backgroundTint="#F87171"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/btnCorrecto"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="6dp"
+                                android:text="Correcto"
+                                android:textColor="#FFFFFF"
+                                android:backgroundTint="#4ADE80"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:id="@+id/bottomNav"
                 android:layout_width="match_parent"

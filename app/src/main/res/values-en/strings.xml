@@ -29,4 +29,16 @@
     <string name="incorrect_word">Try again.</string>
     <string name="btn_back_desc">Back</string>
     <string name="object_img_desc">Object %1$d</string>
+
+    <string name="objeto_alumnos_jpg">Students</string>
+    <string name="objeto_botas">Boots</string>
+    <string name="objeto_cartuchera">Pencil Case</string>
+    <string name="objeto_hoja">Leaf</string>
+    <string name="objeto_nido">Nest</string>
+    <string name="objeto_nube">Cloud</string>
+    <string name="objeto_paraguas">Umbrella</string>
+    <string name="objeto_pizarron">Blackboard</string>
+    <string name="objeto_profesor">Teacher</string>
+    <string name="objeto_raiz">Root</string>
+    <string name="objeto_tronco">Trunk</string>
 </resources>

@@ -18,6 +18,17 @@
     <string name="animal_elefante">Elefante</string>
     <string name="animal_leon">León</string>
     <string name="animal_jirafa">Jirafa</string>
+    <string name="objeto_alumnos_jpg">Alumnos</string>
+    <string name="objeto_botas">Botas</string>
+    <string name="objeto_cartuchera">Cartuchera</string>
+    <string name="objeto_hoja">Hoja</string>
+    <string name="objeto_nido">Nido</string>
+    <string name="objeto_nube">Nube</string>
+    <string name="objeto_paraguas">Paraguas</string>
+    <string name="objeto_pizarron">Pizarrón</string>
+    <string name="objeto_profesor">Profesor</string>
+    <string name="objeto_raiz">Raíz</string>
+    <string name="objeto_tronco">Tronco</string>
 
     <string name="guess_word">Adiviná la palabra:</string>
     <string name="observe_images">Observá las imágenes:</string>
@@ -27,4 +38,5 @@
     <string name="incorrect_word">Inténtalo de nuevo.</string>
     <string name="btn_back_desc">Volver</string>
     <string name="object_img_desc">Objeto %1$d</string>
+
 </resources>

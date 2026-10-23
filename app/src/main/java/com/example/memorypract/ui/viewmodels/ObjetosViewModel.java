@@ -4,126 +4,115 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.memorypract.data.modelos.AnimalItem;
+import com.example.memorypract.data.modelos.ObjetoItem;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class ObjetosViewModel extends ViewModel {
 
-    private final MutableLiveData<String> _targetWord = new MutableLiveData<>("ARBOL");
-    public LiveData<String> getTargetWord() { return _targetWord; }
+    private final MutableLiveData<List<ObjetoItem>> _listaObjetos = new MutableLiveData<>(new ArrayList<>());
 
-    private final MutableLiveData<List<Character>> _availableLetters = new MutableLiveData<>(new ArrayList<>());
-    public LiveData<List<Character>> getAvailableLetters() { return _availableLetters; }
-
-    private final MutableLiveData<List<String>> _slotLetters = new MutableLiveData<>(new ArrayList<>());
-    public LiveData<List<String>> getSlotLetters() { return _slotLetters; }
-
-    private final MutableLiveData<List<Integer>> _selectedKeyIndices = new MutableLiveData<>(new ArrayList<>());
-    public LiveData<List<Integer>> getSelectedKeyIndices() { return _selectedKeyIndices; }
-
-    private final MutableLiveData<Boolean> _checkResultEvent = new MutableLiveData<>();
-    public LiveData<Boolean> getCheckResultEvent() { return _checkResultEvent; }
-
-    public void loadWord(String word) {
-        if (word == null || word.trim().isEmpty()) return;
-
-        String formattedWord = word.trim().toUpperCase();
-
-        // If word is already set and letters generated, do not re-randomize on configuration changes
-        if (formattedWord.equals(_targetWord.getValue()) && _availableLetters.getValue() != null && !_availableLetters.getValue().isEmpty()) {
-            return;
-        }
-
-        _targetWord.setValue(formattedWord);
-
-        List<Integer> selectedIndices = new ArrayList<>();
-        _selectedKeyIndices.setValue(selectedIndices);
-
-        List<Character> letters = new ArrayList<>();
-        for (char c : formattedWord.toCharArray()) {
-            letters.add(c);
-        }
-
-        int totalTargetKeys = formattedWord.length() > 6 ? 14 : 12;
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        Random random = new Random();
-        while (letters.size() < totalTargetKeys) {
-            char randomChar = alphabet.charAt(random.nextInt(alphabet.length()));
-            letters.add(randomChar);
-        }
-        Collections.shuffle(letters);
-        _availableLetters.setValue(letters);
-
-        List<String> slots = new ArrayList<>();
-        for (int i = 0; i < formattedWord.length(); i++) {
-            slots.add("");
-        }
-        _slotLetters.setValue(slots);
+    public LiveData<List<ObjetoItem>> getListaObjetos() {
+        return _listaObjetos;
     }
 
-    public void onKeyClick(int keyIndex) {
-        List<String> slots = _slotLetters.getValue();
-        List<Character> letters = _availableLetters.getValue();
-        List<Integer> selectedIndices = _selectedKeyIndices.getValue();
+    private final MutableLiveData<Integer> _currentIndex = new MutableLiveData<>(0);
 
-        if (slots == null || letters == null || selectedIndices == null) return;
-        if (keyIndex < 0 || keyIndex >= letters.size()) return;
-        if (selectedIndices.contains(keyIndex)) return;
-
-        List<String> newSlots = new ArrayList<>(slots);
-        List<Integer> newSelectedIndices = new ArrayList<>(selectedIndices);
-
-        for (int i = 0; i < newSlots.size(); i++) {
-            if (newSlots.get(i).isEmpty()) {
-                newSlots.set(i, String.valueOf(letters.get(keyIndex)));
-                newSelectedIndices.add(keyIndex);
-                break;
-            }
-        }
-
-        _slotLetters.setValue(newSlots);
-        _selectedKeyIndices.setValue(newSelectedIndices);
+    public LiveData<Integer> getCurrentIndex() {
+        return _currentIndex;
     }
 
-    public void deleteLastLetter() {
-        List<String> slots = _slotLetters.getValue();
-        List<Integer> selectedIndices = _selectedKeyIndices.getValue();
+    private final MutableLiveData<Integer> _correctCount = new MutableLiveData<>(0);
 
-        if (slots == null || selectedIndices == null || selectedIndices.isEmpty()) return;
-
-        List<Integer> newSelectedIndices = new ArrayList<>(selectedIndices);
-        int lastKeyIndex = newSelectedIndices.remove(newSelectedIndices.size() - 1);
-
-        List<String> newSlots = new ArrayList<>(slots);
-        for (int i = newSlots.size() - 1; i >= 0; i--) {
-            if (!newSlots.get(i).isEmpty()) {
-                newSlots.set(i, "");
-                break;
-            }
-        }
-
-        _selectedKeyIndices.setValue(newSelectedIndices);
-        _slotLetters.setValue(newSlots);
+    public LiveData<Integer> getCorrectCount() {
+        return _correctCount;
     }
 
-    public void checkWord() {
-        List<String> slots = _slotLetters.getValue();
-        String target = _targetWord.getValue();
+    private final MutableLiveData<Integer> _incorrectCount = new MutableLiveData<>(0);
 
-        if (slots == null || target == null) return;
-
-        StringBuilder currentGuess = new StringBuilder();
-        for (String letter : slots) {
-            currentGuess.append(letter);
-        }
-
-        boolean isCorrect = currentGuess.toString().equalsIgnoreCase(target);
-        _checkResultEvent.setValue(isCorrect);
+    public LiveData<Integer> getIncorrectCount() {
+        return _incorrectCount;
     }
 
-    public void clearCheckResultEvent() {
-        _checkResultEvent.setValue(null);
+    private final MutableLiveData<Boolean> _isFlipped = new MutableLiveData<>(false);
+
+    public LiveData<Boolean> isFlipped() {
+        return _isFlipped;
+    }
+
+    private final MutableLiveData<Boolean> _isAnimating = new MutableLiveData<>(false);
+
+    public LiveData<Boolean> isAnimating() {
+        return _isAnimating;
+    }
+
+    private final MutableLiveData<Boolean> _isGameFinished = new MutableLiveData<>(false);
+
+    public LiveData<Boolean> isGameFinished() {
+        return _isGameFinished;
+    }
+
+    public void inicializarObjetos(List<ObjetoItem> objetos) {
+        List<ObjetoItem> actual = _listaObjetos.getValue();
+        if (actual == null || actual.isEmpty()) {
+            _listaObjetos.setValue(objetos);
+        }
+    }
+
+    public void setAnimating(boolean animating) {
+        _isAnimating.setValue(animating);
+    }
+
+    public void toggleFlipped() {
+        Boolean flipped = _isFlipped.getValue();
+        _isFlipped.setValue(flipped == null || !flipped);
+    }
+
+    public void setFlipped(boolean flipped) {
+        _isFlipped.setValue(flipped);
+    }
+
+    public void registrarRespuesta(boolean esCorrecto) {
+        if (esCorrecto) {
+            Integer current = _correctCount.getValue();
+            _correctCount.setValue((current != null ? current : 0) + 1);
+        } else {
+            Integer current = _incorrectCount.getValue();
+            _incorrectCount.setValue((current != null ? current : 0) + 1);
+        }
+    }
+
+    public void avanzarTarjeta() {
+        List<ObjetoItem> lista = _listaObjetos.getValue();
+        Integer index = _currentIndex.getValue();
+        int nextIndex = (index != null ? index : 0) + 1;
+
+        _isFlipped.setValue(false);
+
+        if (lista != null && nextIndex < lista.size()) {
+            _currentIndex.setValue(nextIndex);
+        } else {
+            _isGameFinished.setValue(true);
+        }
+    }
+
+    public void reiniciarJuego() {
+        _currentIndex.setValue(0);
+        _correctCount.setValue(0);
+        _incorrectCount.setValue(0);
+        _isFlipped.setValue(false);
+        _isAnimating.setValue(false);
+        _isGameFinished.setValue(false);
+    }
+
+    public ObjetoItem getObjetoActual() {
+        List<ObjetoItem> lista = _listaObjetos.getValue();
+        Integer index = _currentIndex.getValue();
+        if (lista != null && index != null && index >= 0 && index < lista.size()) {
+            return lista.get(index);
+        }
+        return null;
     }
 }
