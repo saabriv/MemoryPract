@@ -20,6 +20,17 @@ public class LoginViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> _isSuccess = new MutableLiveData<>();
     public LiveData<Boolean> getIsSuccess() { return _isSuccess; }
 
+    public enum Estado {
+        CARGANDO,
+        EXITO,
+        ERROR_CORREO_INVALIDO
+    }
+
+    private final MutableLiveData<Estado> _estado = new MutableLiveData<>();
+    public LiveData<Estado> getEstado() {
+        return _estado;
+    }
+
     public LoginViewModel(@NonNull Application application) {
         super(application);
         repository = new UsuarioRepository(application);
@@ -29,8 +40,11 @@ public class LoginViewModel extends AndroidViewModel {
         if (correo == null || correo.trim().isEmpty()) {
             _loginResult.postValue("Por favor ingresa un correo válido");
             _isSuccess.postValue(false);
+            _estado.postValue(Estado.ERROR_CORREO_INVALIDO);
             return;
         }
+
+        _estado.postValue(Estado.CARGANDO);
 
         String correoLimpio = correo.trim();
         String nombreLimpio = (nombre != null && !nombre.trim().isEmpty()) ? nombre.trim() : "Usuario";
@@ -39,13 +53,16 @@ public class LoginViewModel extends AndroidViewModel {
             if (usuarioExistente != null) {
                 _loginResult.postValue("¡Bienvenido de nuevo, " + usuarioExistente.getNombre() + "!");
                 _isSuccess.postValue(true);
+                _estado.postValue(Estado.EXITO);
             } else {
                 Usuario nuevoUsuario = new Usuario(nombreLimpio, correoLimpio);
                 repository.registrarUsuario(nuevoUsuario, id -> {
                     _loginResult.postValue("Usuario registrado exitosamente");
                     _isSuccess.postValue(true);
+                    _estado.postValue(Estado.EXITO);
                 });
             }
         });
+
     }
 }

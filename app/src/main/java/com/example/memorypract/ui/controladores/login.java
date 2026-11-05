@@ -20,6 +20,7 @@ public class login extends AppCompatActivity {
 
     private LoginViewModel viewModel;
     private EditText etEmail;
+    private View btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class login extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         etEmail = findViewById(R.id.etEmail);
+        btnLogin = findViewById(R.id.btnLogin);
 
         View btnSettings = findViewById(R.id.btnSettings);
         if (btnSettings != null) {
@@ -45,7 +47,7 @@ public class login extends AppCompatActivity {
             });
         }
 
-        findViewById(R.id.btnLogin).setOnClickListener(v -> {
+        btnLogin.setOnClickListener(v -> {
             String correo = etEmail.getText() != null ? etEmail.getText().toString() : "";
             viewModel.iniciarSesionOCrear(correo, correo);
         });
@@ -61,6 +63,25 @@ public class login extends AppCompatActivity {
                 Intent intent = new Intent(login.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        viewModel.getEstado().observe(this, estado -> {
+            if (estado == null) return;
+            switch (estado) {
+                case CARGANDO:
+                    btnLogin.setEnabled(false);
+                    break;
+                case EXITO:
+                    btnLogin.setEnabled(true);
+                    Intent intent = new Intent(login.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    break;
+                case ERROR_CORREO_INVALIDO:
+                    btnLogin.setEnabled(true);
+                    Toast.makeText(this, "Ingrese un correo válido", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
     }
