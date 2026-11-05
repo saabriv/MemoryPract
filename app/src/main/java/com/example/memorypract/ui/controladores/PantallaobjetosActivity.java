@@ -1,8 +1,8 @@
 package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,14 +14,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.memorypract.R;
-import com.example.memorypract.data.modelos.AnimalItem;
 import com.example.memorypract.data.modelos.ObjetoItem;
 import com.example.memorypract.ui.viewmodels.ObjetosViewModel;
 
@@ -29,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PantallaobjetosActivity extends AppCompatActivity {
+
+    private static final String TAG = "PantallaobjetosActivity";
 
     private ObjetosViewModel viewModel;
     private CardView cardFlashcard;
@@ -41,6 +41,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: Inicializando PantallaobjetosActivity");
         EdgeToEdge.enable(this);
         setContentView(R.layout.pantallaobjetos);
 
@@ -53,17 +54,20 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(ObjetosViewModel.class);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando de vuelta a MainActivity");
             Intent intent = new Intent(PantallaobjetosActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
 
         findViewById(R.id.btnAnimales).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando a AnimalesActivity desde navegación inferior");
             Intent intent = new Intent(PantallaobjetosActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
 
         findViewById(R.id.btnColores).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando a ColoresActivity desde navegación inferior");
             Intent intent = new Intent(PantallaobjetosActivity.this, ColoresActivity.class);
             startActivity(intent);
         });
@@ -80,7 +84,6 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         Button btnCorrecto = findViewById(R.id.btnCorrecto);
         Button btnIncorrecto = findViewById(R.id.btnIncorrecto);
 
-
         List<ObjetoItem> lista = new ArrayList<>();
         lista.add(new ObjetoItem(getString(R.string.objeto_alumnos_jpg), R.drawable.foto_alumnos_jpg));
         lista.add(new ObjetoItem(getString(R.string.objeto_botas), R.drawable.foto_botas));
@@ -89,24 +92,38 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         lista.add(new ObjetoItem(getString(R.string.objeto_nido), R.drawable.foto_nido_jpg));
         lista.add(new ObjetoItem(getString(R.string.objeto_nube), R.drawable.foto_nube));
 
+        Log.d(TAG, "Inicializando lista de " + lista.size() + " objetos en ViewModel");
         viewModel.inicializarObjetos(lista);
 
-        viewModel.getCurrentIndex().observe(this, index -> actualizarVistaCard());
-        viewModel.isFlipped().observe(this, flipped -> actualizarEstructuraCard(Boolean.TRUE.equals(flipped)));
+        viewModel.getCurrentIndex().observe(this, index -> {
+            Log.d(TAG, "Observador currentIndex cambió a: " + index);
+            actualizarVistaCard();
+        });
+
+        viewModel.isFlipped().observe(this, flipped -> {
+            Log.d(TAG, "Observador isFlipped cambió a: " + flipped);
+            actualizarEstructuraCard(Boolean.TRUE.equals(flipped));
+        });
 
         viewModel.isGameFinished().observe(this, finished -> {
             if (Boolean.TRUE.equals(finished)) {
+                Log.i(TAG, "Observador isGameFinished: Juego de objetos finalizado");
                 mostrarResumenFinal();
             }
         });
 
         cardFlashcard.setOnClickListener(v -> {
-            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue()) || Boolean.TRUE.equals(viewModel.isFlipped().getValue())) return;
+            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue()) || Boolean.TRUE.equals(viewModel.isFlipped().getValue())) {
+                Log.d(TAG, "Tarjeta tocada pero ignorada: animando o volteada");
+                return;
+            }
+            Log.d(TAG, "Tarjeta tocada: Volteando objeto");
             voltearTarjeta();
         });
 
         btnCorrecto.setOnClickListener(v -> {
             if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            Log.i(TAG, "Respuesta CORRECTA registrada para objeto");
             viewModel.registrarRespuesta(true);
             Toast.makeText(this, R.string.message_correct, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
@@ -114,6 +131,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
 
         btnIncorrecto.setOnClickListener(v -> {
             if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            Log.w(TAG, "Respuesta INCORRECTA registrada para objeto");
             viewModel.registrarRespuesta(false);
             Toast.makeText(this, R.string.message_incorrect, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
@@ -142,6 +160,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
     }
 
     private void avanzarSiguienteTarjeta() {
+        Log.d(TAG, "Avanzando a la siguiente tarjeta de objeto");
         viewModel.setAnimating(true);
         cardFlashcard.animate()
                 .translationX(-400f)
@@ -180,6 +199,8 @@ public class PantallaobjetosActivity extends AppCompatActivity {
         List<ObjetoItem> lista = viewModel.getListaObjetos().getValue();
         int total = lista != null ? lista.size() : 0;
 
+        Log.i(TAG, "Mostrando resumen final de Objetos: Correctas=" + correctas + ", Incorrectas=" + incorrectas + ", Total=" + total);
+
         String mensaje = "¡Juego completado!\n\n" +
                 "✅ Correctas: " + correctas + "\n" +
                 "❌ Incorrectas: " + incorrectas + "\n" +
@@ -189,10 +210,12 @@ public class PantallaobjetosActivity extends AppCompatActivity {
                 .setTitle("Resumen de Resultados")
                 .setMessage(mensaje)
                 .setPositiveButton("Volver a intentarlo", (dialog, which) -> {
+                    Log.i(TAG, "Reiniciando juego de Objetos desde diálogo resumen");
                     viewModel.reiniciarJuego();
                     actualizarVistaCard();
                 })
                 .setNegativeButton("Volver al inicio", (dialog, which) -> {
+                    Log.i(TAG, "Volviendo a MainActivity desde diálogo resumen");
                     Intent intent = new Intent(PantallaobjetosActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
@@ -203,12 +226,17 @@ public class PantallaobjetosActivity extends AppCompatActivity {
 
     private void actualizarVistaCard() {
         ObjetoItem objeto = viewModel.getObjetoActual();
-        if (objeto == null) return;
+        if (objeto == null) {
+            Log.w(TAG, "actualizarVistaCard: Objeto actual es nulo");
+            return;
+        }
 
         List<ObjetoItem> lista = viewModel.getListaObjetos().getValue();
         Integer index = viewModel.getCurrentIndex().getValue();
         int currentIndexVal = index != null ? index : 0;
         int total = lista != null ? lista.size() : 0;
+
+        Log.d(TAG, "Actualizando tarjeta de objeto: " + objeto.getNombre() + " (" + (currentIndexVal + 1) + "/" + total + ")");
 
         imgObjeto.setImageResource(objeto.getImagenResId());
         txtObjetoName.setText(objeto.getNombre());
@@ -226,6 +254,7 @@ public class PantallaobjetosActivity extends AppCompatActivity {
     }
 
     private void actualizarEstructuraCard(boolean isFlipped) {
+        Log.d(TAG, "actualizarEstructuraCard: isFlipped=" + isFlipped);
         if (isFlipped) {
             layoutFront.setVisibility(View.GONE);
             layoutBack.setVisibility(View.VISIBLE);

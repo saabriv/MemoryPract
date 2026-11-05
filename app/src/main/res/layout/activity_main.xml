@@ -4,132 +4,367 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_main">
+    android:background="#FFFFFF">
 
-    <androidx.cardview.widget.CardView
+    <!-- Top Left Settings/Dark Mode Button -->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_dark_mode_button"
+        android:contentDescription="@string/settings_desc"
+        android:padding="10dp"
+        android:src="@drawable/ic_moon" />
+
+    <!-- Title and Subtitle Header -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/main_title"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/select_category"
+            android:textColor="#4B5563"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- Scrollable Cards Grid -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="#FFFFFF">
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="24dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <!-- Botón configuración -->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btnSettings"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_margin="24dp"
-                android:background="@drawable/bg_settings_icon"
-                android:src="@drawable/ic_settings"
-                android:padding="14dp"
-                android:tint="@color/settings_icon"
-                android:contentDescription="@string/settings_desc" />
-
-            <!-- Título y subtítulo -->
-            <LinearLayout
-                android:id="@+id/headerLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="120dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Memory App"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/title_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/choose_category"
-                    android:textSize="16sp"
-                    android:textColor="@color/subtitle_color" />
-
-            </LinearLayout>
-
-            <!-- Botones de categoría -->
+            <!-- ROW 1: Animales & Colores -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginHorizontal="32dp"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <com.google.android.material.button.MaterialButton
+                <!-- CARD 1: Animales -->
+                <androidx.cardview.widget.CardView
                     android:id="@+id/btnAnimales"
-                    android:layout_width="match_parent"
-                    android:layout_height="84dp"
-                    android:layout_marginBottom="19dp"
-                    android:background="@drawable/bg_button_animales"
-                    android:elevation="4dp"
-                    android:text="@string/category_animales"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@null"
-                    app:cornerRadius="32dp"
-                    app:icon="@drawable/ic_paw"
-                    app:iconGravity="textStart"
-                    app:iconPadding="12dp"
-                    app:iconTint="#FFFFFF" />
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#DCFCE7"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnObjetos"
-                    android:layout_width="match_parent"
-                    android:layout_height="84dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="19dp"
-                    android:background="@drawable/bg_button_objetos"
-                    android:elevation="4dp"
-                    android:text="@string/category_objetos"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@null"
-                    app:cornerRadius="32dp"
-                    app:icon="@drawable/ic_shapes"
-                    app:iconGravity="textStart"
-                    app:iconPadding="12dp"
-                    app:iconTint="#FFFFFF" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
 
-                <com.google.android.material.button.MaterialButton
+                        <ImageView
+                            android:id="@+id/imgAnimales"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/category_animales_title"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/illustration_animales" />
+
+                        <TextView
+                            android:id="@+id/txtTitleAnimales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgAnimales"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/category_animales_title"
+                            android:textColor="#111827"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtTitleAnimales"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="@string/category_animales_desc"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp" />
+
+                        <!-- Badge Icon -->
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/bg_badge_animales">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/category_animales_title"
+                                android:src="@drawable/ic_paw"
+                                app:tint="#166534" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- CARD 2: Colores -->
+                <androidx.cardview.widget.CardView
                     android:id="@+id/btnColores"
-                    android:layout_width="match_parent"
-                    android:layout_height="84dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_button_colores"
-                    android:elevation="4dp"
-                    android:text="@string/category_colores"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@null"
-                    app:cornerRadius="32dp"
-                    app:icon="@drawable/ic_palette"
-                    app:iconGravity="textStart"
-                    app:iconPadding="12dp"
-                    app:iconTint="#FFFFFF" />
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#EDE9FE"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/imgColores"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/category_colores_title"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/illustration_colores" />
+
+                        <TextView
+                            android:id="@+id/txtTitleColores"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgColores"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/category_colores_title"
+                            android:textColor="#111827"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtTitleColores"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="@string/category_colores_desc"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp" />
+
+                        <!-- Badge Icon -->
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/bg_badge_colores">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/category_colores_title"
+                                android:src="@drawable/ic_palette"
+                                app:tint="#5B21B6" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <!-- ROW 2: Objetos & Seguimiento -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-    </androidx.cardview.widget.CardView>
+                <!-- CARD 3: Objetos -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnObjetos"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#FEF3C7"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/imgObjetos"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/category_objetos_title"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/illustration_objetos" />
+
+                        <TextView
+                            android:id="@+id/txtTitleObjetos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgObjetos"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/category_objetos_title"
+                            android:textColor="#111827"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtTitleObjetos"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="@string/category_objetos_desc"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp" />
+
+                        <!-- Badge Icon -->
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/bg_badge_objetos">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/category_objetos_title"
+                                android:src="@drawable/ic_key"
+                                app:tint="#92400E" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- CARD 4: Seguimiento -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnSeguimiento"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="#FFE4E6"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="0dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/imgSeguimiento"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/category_seguimiento_title"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/illustration_seguimiento" />
+
+                        <TextView
+                            android:id="@+id/txtTitleSeguimiento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imgSeguimiento"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/category_seguimiento_title"
+                            android:textColor="#111827"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtTitleSeguimiento"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="32dp"
+                            android:text="@string/category_seguimiento_desc"
+                            android:textColor="#4B5563"
+                            android:textSize="12sp" />
+
+                        <!-- Badge Icon -->
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/bg_badge_seguimiento">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/category_seguimiento_title"
+                                android:src="@drawable/ic_star_check"
+                                app:tint="#9F1239" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

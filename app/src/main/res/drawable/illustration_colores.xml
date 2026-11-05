@@ -1,0 +1,64 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="120dp"
+    android:viewportWidth="160"
+    android:viewportHeight="120">
+
+    <!-- Lavender background accent blob -->
+    <path
+        android:fillColor="#DDD6FE"
+        android:pathData="M30,30 C10,40 10,80 30,100 C60,110 110,110 130,90 C150,70 140,20 100,20 C60,20 40,20 30,30 Z" />
+
+    <!-- Color Swatches Fan (Pantone style deck) -->
+    <!-- Swatch 1 (Pink/Red) -->
+    <path
+        android:fillColor="#EC4899"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M25,25 L45,15 L75,70 L55,80 Z" />
+    <!-- Swatch 2 (Purple) -->
+    <path
+        android:fillColor="#8B5CF6"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M38,20 L60,12 L85,72 L63,80 Z" />
+    <!-- Swatch 3 (Blue) -->
+    <path
+        android:fillColor="#3B82F6"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M52,18 L76,14 L95,74 L71,78 Z" />
+    <!-- Swatch 4 (Cyan) -->
+    <path
+        android:fillColor="#06B6D4"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M66,16 L92,18 L104,76 L78,74 Z" />
+
+    <!-- Swatch Holder Pin -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M70,72 A4,4 0 1,0 70,64 A4,4 0 1,0 70,72 Z" />
+
+    <!-- Venn Diagram Overlapping Color Circles -->
+    <!-- Red Circle -->
+    <path
+        android:fillColor="#EF4444"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M110,40 A18,18 0 1,0 110,76 A18,18 0 1,0 110,40 Z" />
+    <!-- Blue Circle -->
+    <path
+        android:fillColor="#3B82F6"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M128,52 A18,18 0 1,0 128,88 A18,18 0 1,0 128,52 Z" />
+    <!-- Yellow Circle -->
+    <path
+        android:fillColor="#EAB308"
+        android:strokeColor="#1E1B4B"
+        android:strokeWidth="1.5"
+        android:pathData="M95,60 A18,18 0 1,0 95,96 A18,18 0 1,0 95,60 Z" />
+</vector>

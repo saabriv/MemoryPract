@@ -1,16 +1,16 @@
 package com.example.memorypract.data.modelos;
 
 public class ColorItem {
-    private String nombre;
-    private int ColorHex;
+    private final String nombre;
+    private final int colorHex;
 
-    public ColorItem(String nombre, int ColorHex){
+    public ColorItem(String nombre, int colorHex) {
         this.nombre = nombre;
-        this.ColorHex = ColorHex;
+        this.colorHex = colorHex;
     }
 
     public int getColorHex() {
-        return ColorHex;
+        return colorHex;
     }
 
     public String getNombre() {

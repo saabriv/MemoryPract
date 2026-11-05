@@ -1,5 +1,7 @@
 package com.example.memorypract.ui.viewmodels;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,6 +13,8 @@ import java.util.List;
 
 public class MetricasViewModel extends ViewModel {
 
+    private static final String TAG = "MetricasViewModel";
+
     private final MutableLiveData<MetricasData> _metricasData = new MutableLiveData<>();
     public LiveData<MetricasData> getMetricasData() { return _metricasData; }
 
@@ -21,11 +25,13 @@ public class MetricasViewModel extends ViewModel {
     public LiveData<Integer> getSelectedSemanaIndex() { return _selectedSemanaIndex; }
 
     public MetricasViewModel() {
+        Log.d(TAG, "Creando MetricasViewModel");
         initSemanas();
         cargarMetricasParaSemana(0);
     }
 
     private void initSemanas() {
+        Log.d(TAG, "Inicializando lista de semanas disponibles para métricas");
         List<String> semanas = new ArrayList<>();
         semanas.add("Semana Actual: 12 Oct - 18 Oct (Actual)");
         semanas.add("Semana Anterior: 05 Oct - 11 Oct");
@@ -34,11 +40,13 @@ public class MetricasViewModel extends ViewModel {
     }
 
     public void seleccionarSemana(int position) {
+        Log.i(TAG, "Seleccionando semana en posición: " + position);
         _selectedSemanaIndex.setValue(position);
         cargarMetricasParaSemana(position);
     }
 
     private void cargarMetricasParaSemana(int index) {
+        Log.d(TAG, "Cargando métricas para el índice de semana: " + index);
         if (index == 0) {
             _metricasData.setValue(new MetricasData(
                     "Semana Actual: 12 Oct - 18 Oct (Actual)",
@@ -70,9 +78,11 @@ public class MetricasViewModel extends ViewModel {
                     "Septiembre 2026", 24, 150, 88
             ));
         }
+        Log.i(TAG, "Métricas cargadas exitosamente para la semana " + index);
     }
 
     public void reiniciarMetricas() {
+        Log.w(TAG, "Reiniciando métricas a valores iniciales (0)");
         _metricasData.setValue(new MetricasData(
                 "Semana Actual: 12 Oct - 18 Oct (Actual)",
                 "12 Oct - 18 Oct, 2026",

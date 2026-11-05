@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MemoryPract</string>
+    <string name="main_title">Memory Pract</string>
+    <string name="select_category">Select a category</string>
 
     <string name="category_animales">Animals</string>
     <string name="category_objetos">Objects</string>
@@ -20,6 +22,15 @@
     <string name="animal_elefante">Elephant</string>
     <string name="animal_leon">Lion</string>
     <string name="animal_jirafa">Giraffe</string>
+
+    <string name="category_animales_title">Animals</string>
+    <string name="category_animales_desc">Identify and match different animals.</string>
+    <string name="category_colores_title">Colors</string>
+    <string name="category_colores_desc">Learn and classify colors and shades.</string>
+    <string name="category_objetos_title">Objects</string>
+    <string name="category_objetos_desc">Train with everyday objects.</string>
+    <string name="category_seguimiento_title">Tracking</string>
+    <string name="category_seguimiento_desc">Review your progress and daily achievements.</string>
 
     <string name="guess_word">Guess the word:</string>
     <string name="observe_images">Observe the images:</string>

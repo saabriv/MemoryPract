@@ -2,6 +2,7 @@ package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +23,8 @@ import com.example.memorypract.data.modelos.MetricasData;
 import com.example.memorypract.ui.viewmodels.MetricasViewModel;
 
 public class MetricasActivity extends AppCompatActivity {
+
+    private static final String TAG = "MetricasActivity";
 
     private MetricasViewModel viewModel;
 
@@ -67,6 +70,7 @@ public class MetricasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: Inicializando MetricasActivity");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_metricas);
 
@@ -84,6 +88,7 @@ public class MetricasActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        Log.d(TAG, "Inicializando referencias a las vistas del layout activity_metricas");
         spinnerSemana = findViewById(R.id.spinnerSemana);
         tvSelectedWeekBadge = findViewById(R.id.tvSelectedWeekBadge);
 
@@ -119,16 +124,19 @@ public class MetricasActivity extends AppCompatActivity {
 
     private void setupListeners() {
         findViewById(R.id.btnSettings).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando a ConfiguracionActivity desde Métricas");
             Intent intent = new Intent(MetricasActivity.this, ConfiguracionActivity.class);
             startActivity(intent);
         });
 
         findViewById(R.id.btnReiniciar).setOnClickListener(v -> {
+            Log.w(TAG, "Botón Reiniciar métricas clickeado");
             viewModel.reiniciarMetricas();
             Toast.makeText(MetricasActivity.this, "Métricas reiniciadas", Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.btnVolverMenu).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando de regreso al menú principal (MainActivity)");
             Intent intent = new Intent(MetricasActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
@@ -139,9 +147,11 @@ public class MetricasActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (isInitialSpinnerSelection) {
+                    Log.d(TAG, "Ignorando selección inicial automática del Spinner de semanas");
                     isInitialSpinnerSelection = false;
                     return;
                 }
+                Log.i(TAG, "Semana seleccionada en el Spinner en posición: " + position);
                 viewModel.seleccionarSemana(position);
             }
 
@@ -153,6 +163,7 @@ public class MetricasActivity extends AppCompatActivity {
     private void observeViewModel() {
         viewModel.getSemanasDisponibles().observe(this, semanas -> {
             if (semanas != null) {
+                Log.d(TAG, "Observador semanasDisponibles actualizado con " + semanas.size() + " opciones");
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                         android.R.layout.simple_spinner_item, semanas);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -162,12 +173,14 @@ public class MetricasActivity extends AppCompatActivity {
 
         viewModel.getMetricasData().observe(this, data -> {
             if (data != null) {
+                Log.d(TAG, "Observador metricasData actualizado para rango: " + data.getRangoSemana());
                 updateUI(data);
             }
         });
     }
 
     private void updateUI(MetricasData data) {
+        Log.d(TAG, "Actualizando interfaz con nuevos datos de métricas");
         tvSelectedWeekBadge.setText(data.getRangoSemana());
 
         // Series

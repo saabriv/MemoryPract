@@ -1,0 +1,90 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="120dp"
+    android:viewportWidth="160"
+    android:viewportHeight="120">
+
+    <!-- Pink background accent blob -->
+    <path
+        android:fillColor="#FECDD3"
+        android:pathData="M30,30 C10,40 10,80 30,100 C60,115 120,110 140,90 C160,70 140,20 100,20 C60,20 40,20 30,30 Z" />
+
+    <!-- Axes (X and Y with arrows) -->
+    <!-- Y Axis -->
+    <path
+        android:strokeColor="#18181B"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M25,105 L25,25" />
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M25,20 L20,28 L30,28 Z" />
+
+    <!-- X Axis -->
+    <path
+        android:strokeColor="#18181B"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M25,105 L140,105" />
+    <path
+        android:fillColor="#18181B"
+        android:pathData="M145,105 L137,100 L137,110 Z" />
+
+    <!-- Horizontal guide line -->
+    <path
+        android:strokeColor="#A1A1AA"
+        android:strokeWidth="1"
+        android:pathData="M25,65 L135,65" />
+
+    <!-- Graph Line -->
+    <path
+        android:strokeColor="#4338CA"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M35,90 L60,65 L85,80 L110,50 L130,60" />
+
+    <!-- Nodes on Line -->
+    <!-- Node 1 (Green) -->
+    <path
+        android:fillColor="#22C55E"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1.5"
+        android:pathData="M35,90 A5,5 0 1,0 35,80 A5,5 0 1,0 35,90 Z" />
+    <!-- Node 2 (Blue) -->
+    <path
+        android:fillColor="#3B82F6"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1.5"
+        android:pathData="M60,65 A5,5 0 1,0 60,55 A5,5 0 1,0 60,65 Z" />
+    <!-- Node 3 (Yellow) -->
+    <path
+        android:fillColor="#EAB308"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1.5"
+        android:pathData="M85,80 A5,5 0 1,0 85,70 A5,5 0 1,0 85,80 Z" />
+    <!-- Node 4 (Red) -->
+    <path
+        android:fillColor="#EF4444"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1.5"
+        android:pathData="M110,50 A5,5 0 1,0 110,40 A5,5 0 1,0 110,50 Z" />
+
+    <!-- Trophy Badge at Top Right -->
+    <path
+        android:fillColor="#FACC15"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1.5"
+        android:pathData="M125,25 A14,14 0 1,0 125,53 A14,14 0 1,0 125,25 Z" />
+    <!-- Trophy Icon inside badge -->
+    <path
+        android:fillColor="#B45309"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1"
+        android:pathData="M120,33 L130,33 L130,40 C130,43 128,45 125,45 C122,45 120,43 120,40 Z" />
+    <path
+        android:fillColor="#B45309"
+        android:strokeColor="#18181B"
+        android:strokeWidth="1"
+        android:pathData="M123,45 L127,45 L127,48 L123,48 Z M121,48 L129,48 L129,50 L121,50 Z" />
+</vector>
