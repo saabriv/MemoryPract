@@ -4,21 +4,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/bg_main">
 
-    <!-- Top Left Settings/Dark Mode Button -->
+    <!-- Top Left Settings Button (Gear) -->
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnSettings"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_dark_mode_button"
+        android:background="@drawable/bg_settings_icon"
         android:contentDescription="@string/settings_desc"
-        android:padding="10dp"
-        android:src="@drawable/ic_moon" />
+        android:padding="12dp"
+        android:src="@drawable/ic_settings"
+        android:tint="@color/settings_icon" />
 
     <!-- Title and Subtitle Header -->
     <LinearLayout
@@ -35,7 +36,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:text="@string/main_title"
-            android:textColor="#000000"
+            android:textColor="@color/title_color"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="@string/select_category"
-            android:textColor="#4B5563"
+            android:textColor="@color/subtitle_color"
             android:textSize="18sp" />
 
     </LinearLayout>

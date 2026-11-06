@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="AJUSTES"
+                        android:text="@string/title_ajustes"
                         android:textColor="#9CA3AF"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -70,7 +70,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Configuración"
+                        android:text="@string/title_configuracion"
                         android:textColor="@color/title_color"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -79,7 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Personaliza tu experiencia"
+                        android:text="@string/subtitle_personaliza"
                         android:textColor="@color/subtitle_color"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -106,7 +106,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_pink"
-                            android:contentDescription="Tamaño texto"
+                            android:contentDescription="@string/desc_tamano_texto_icon"
                             android:padding="8dp"
                             android:src="@drawable/ic_text_size" />
 
@@ -121,7 +121,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tamaño del Texto"
+                                android:text="@string/label_tamano_texto"
                                 android:textColor="#1F2937"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -130,7 +130,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Ajusta la legibilidad de la app"
+                                android:text="@string/desc_tamano_texto"
                                 android:textColor="#6B7280"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -152,7 +152,7 @@
                             android:background="@drawable/bg_option_unselected"
                             android:gravity="center"
                             android:paddingVertical="10dp"
-                            android:text="Pequeño"
+                            android:text="@string/option_pequeno"
                             android:textColor="#374151"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -166,7 +166,7 @@
                             android:background="@drawable/bg_option_selected"
                             android:gravity="center"
                             android:paddingVertical="10dp"
-                            android:text="Mediano"
+                            android:text="@string/option_mediano"
                             android:textColor="#EC407A"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -180,7 +180,7 @@
                             android:background="@drawable/bg_option_unselected"
                             android:gravity="center"
                             android:paddingVertical="10dp"
-                            android:text="Grande"
+                            android:text="@string/option_grande"
                             android:textColor="#374151"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -194,7 +194,7 @@
                             android:background="@drawable/bg_option_unselected"
                             android:gravity="center"
                             android:paddingVertical="10dp"
-                            android:text="Extra"
+                            android:text="@string/option_extra"
                             android:textColor="#374151"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -202,65 +202,7 @@
 
                 </LinearLayout>
 
-                <!-- Card 2: Modo Oscuro -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_card_setting"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iconMoon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/bg_icon_purple"
-                            android:contentDescription="Modo Oscuro"
-                            android:padding="8dp"
-                            android:src="@drawable/ic_moon" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iconMoon"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Modo Oscuro"
-                                android:textColor="#1F2937"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Cambiar paleta visual"
-                                android:textColor="#6B7280"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switchModoOscuro"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <!-- Card 3: Recordatorios -->
+                <!-- Card 2: Recordatorios -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -280,7 +222,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_teal"
-                            android:contentDescription="Recordatorios"
+                            android:contentDescription="@string/label_recordatorios"
                             android:padding="8dp"
                             android:src="@drawable/ic_bell" />
 
@@ -295,7 +237,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Recordatorios"
+                                android:text="@string/label_recordatorios"
                                 android:textColor="#1F2937"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -304,7 +246,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Avisos de objetivos diarios"
+                                android:text="@string/desc_recordatorios"
                                 android:textColor="#6B7280"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -321,7 +263,7 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <!-- Card 4: Previsualización de texto -->
+                <!-- Card 3: Previsualización de texto -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -333,7 +275,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PREVISUALIZACIÓN DE TEXTO"
+                        android:text="@string/label_previsualizacion"
                         android:textColor="#9CA3AF"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -343,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="¡Así se verá el texto en toda tu Memory App!"
+                        android:text="@string/preview_text"
                         android:textColor="#1F2937"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -358,7 +300,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_button_guardar"
                     android:elevation="4dp"
-                    android:text="✓ Guardar y Aplicar"
+                    android:text="@string/btn_guardar_aplicar"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

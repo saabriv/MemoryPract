@@ -50,4 +50,43 @@
     <string name="btn_back_desc">Volver</string>
     <string name="object_img_desc">Objeto %1$d</string>
 
+    <!-- Settings Screen -->
+    <string name="title_ajustes">AJUSTES</string>
+    <string name="title_configuracion">Configuración</string>
+    <string name="subtitle_personaliza">Personaliza tu experiencia</string>
+    <string name="desc_tamano_texto_icon">Tamaño texto</string>
+    <string name="label_tamano_texto">Tamaño del Texto</string>
+    <string name="desc_tamano_texto">Ajusta la legibilidad de la app</string>
+    <string name="option_pequeno">Pequeño</string>
+    <string name="option_mediano">Mediano</string>
+    <string name="option_grande">Grande</string>
+    <string name="option_extra">Extra</string>
+    <string name="label_recordatorios">Recordatorios</string>
+    <string name="desc_recordatorios">Avisos de objetivos diarios</string>
+    <string name="label_previsualizacion">PREVISUALIZACIÓN DE TEXTO</string>
+    <string name="preview_text">¡Así se verá el texto en toda tu Memory App!</string>
+    <string name="btn_guardar_aplicar">✓ Guardar y Aplicar</string>
+
+    <!-- Metrics Screen -->
+    <string name="btn_reiniciar">Reiniciar</string>
+    <string name="subtitle_panel_metricas">Panel de Métricas y Objetivos</string>
+    <string name="label_seleccionar_semana">SELECCIONAR SEMANA</string>
+    <string name="desc_calendar">Calendar</string>
+    <string name="desc_series">Series</string>
+    <string name="desc_colores">Colores</string>
+    <string name="desc_animales">Animales</string>
+    <string name="desc_objetos">Objetos</string>
+    <string name="desc_chart">Chart</string>
+    <string name="title_series_realizadas">Series Realizadas</string>
+    <string name="subtitle_series_sub">Color → Animal → Objeto</string>
+    <string name="title_colores_acertados">Colores Acertados</string>
+    <string name="subtitle_colores_sub">Categoría Colores</string>
+    <string name="title_animales_reconocidos">Animales Reconocidos</string>
+    <string name="subtitle_animales_sub">Categoría Animales</string>
+    <string name="title_objetos_identificados">Objetos Identificados</string>
+    <string name="subtitle_objetos_sub">Categoría Objetos</string>
+    <string name="label_consolidado">Consolidado</string>
+    <string name="label_series_totales_mes">Series Totales Mes</string>
+    <string name="label_aciertos_totales">Aciertos Totales</string>
+    <string name="btn_volver_menu_principal">← Volver al Menú Principal</string>
 </resources>

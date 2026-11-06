@@ -27,9 +27,6 @@ public class MetricasViewModel extends AndroidViewModel {
     private final MutableLiveData<List<String>> _semanasDisponibles = new MutableLiveData<>();
     public LiveData<List<String>> getSemanasDisponibles() { return _semanasDisponibles; }
 
-    private final MutableLiveData<Integer> _selectedSemanaIndex = new MutableLiveData<>(0);
-    public LiveData<Integer> getSelectedSemanaIndex() { return _selectedSemanaIndex; }
-
     public MetricasViewModel(@NonNull Application application) {
         super(application);
         Log.d(TAG, "Creando MetricasViewModel con MetricaRepository (Room SQLite)");
@@ -49,12 +46,29 @@ public class MetricasViewModel extends AndroidViewModel {
 
     public void seleccionarSemana(int position) {
         Log.i(TAG, "Seleccionando semana en posición: " + position);
-        _selectedSemanaIndex.setValue(position);
         cargarMetricasParaSemana(position);
+    }
+
+    private String calcularTagComparacion(int actual, int anterior) {
+        if (anterior <= 0) {
+            return "Sin datos";
+        }
+        int diff = actual - anterior;
+        if (diff > 0) {
+            int pct = (diff * 100) / anterior;
+            return "↑ Superado (+" + pct + "%)";
+        } else if (diff < 0) {
+            int pct = (Math.abs(diff) * 100) / anterior;
+            return "↓ Por debajo (-" + pct + "%)";
+        } else {
+            return "= Igual (100%)";
+        }
     }
 
     private void cargarMetricasParaSemana(int index) {
         Log.d(TAG, "Cargando métricas desde la base de datos Room para la semana: " + index);
+
+        // Rango de la semana seleccionada
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -66,48 +80,77 @@ public class MetricasViewModel extends AndroidViewModel {
         long desdeMs = cal.getTimeInMillis();
         long hastaMs = desdeMs + (7L * 24 * 60 * 60 * 1000) - 1;
 
-        repository.cargarMetricasSemana("invitado@memory.com", desdeMs, hastaMs, result -> {
-            int seriesRealizadas = result.series > 0 ? result.series : (index == 0 ? 8 : 6);
-            int coloresAcertados = result.colores > 0 ? result.colores : (index == 0 ? 24 : 18);
-            int animalesReconocidos = result.animales > 0 ? result.animales : (index == 0 ? 19 : 22);
-            int objetosIdentificados = result.objetos > 0 ? result.objetos : 18;
-            int aciertosTotalesMes = result.aciertosTotales > 0 ? result.aciertosTotales : (index == 0 ? 182 : 150);
+        // Rango de la semana anterior a la seleccionada
+        long desdeAntMs = desdeMs - (7L * 24 * 60 * 60 * 1000);
+        long hastaAntMs = desdeMs - 1;
 
-            MetricasData data;
-            if (index == 0) {
-                data = new MetricasData(
-                        "Semana Actual: 12 Oct - 18 Oct (Actual)",
-                        "12 Oct - 18 Oct, 2026",
-                        seriesRealizadas, 6, 6, "↗ Superado (+33%)",
-                        coloresAcertados, 20, 18, "↗ Superado (+33%)",
-                        animalesReconocidos, 22, 22, "= Por debajo (-13%)",
-                        objetosIdentificados, 18, 18, "✓ Igual (100%)",
-                        "Octubre 2026", 28, aciertosTotalesMes, 94
-                );
-            } else if (index == 1) {
-                data = new MetricasData(
-                        "Semana Anterior: 05 Oct - 11 Oct",
-                        "05 Oct - 11 Oct, 2026",
-                        seriesRealizadas, 6, 5, "↗ Superado (+20%)",
-                        coloresAcertados, 20, 15, "↗ Superado (+20%)",
-                        animalesReconocidos, 22, 20, "↗ Superado (+10%)",
-                        objetosIdentificados, 18, 16, "↗ Superado (+12%)",
-                        "Octubre 2026", 28, aciertosTotalesMes, 94
-                );
-            } else {
-                data = new MetricasData(
-                        "Semana: 28 Sep - 04 Oct",
-                        "28 Sep - 04 Oct, 2026",
-                        seriesRealizadas, 6, 4, "↗ Superado (+25%)",
-                        coloresAcertados, 20, 12, "↗ Superado (+25%)",
-                        animalesReconocidos, 22, 18, "↗ Superado (+11%)",
-                        objetosIdentificados, 18, 15, "↗ Superado (+6%)",
-                        "Septiembre 2026", 24, aciertosTotalesMes, 88
-                );
-            }
-            _metricasData.postValue(data);
-            Log.i(TAG, "Métricas cargadas exitosamente desde Room SQLite para la semana " + index);
-        });
+        // Rango del mes actual
+        Calendar calMes = Calendar.getInstance();
+        calMes.set(Calendar.DAY_OF_MONTH, 1);
+        calMes.set(Calendar.HOUR_OF_DAY, 0);
+        calMes.set(Calendar.MINUTE, 0);
+        calMes.set(Calendar.SECOND, 0);
+        calMes.set(Calendar.MILLISECOND, 0);
+        long desdeMesMs = calMes.getTimeInMillis();
+        long hastaMesMs = System.currentTimeMillis();
+
+        repository.cargarMetricasCompletas("invitado@memory.com",
+                desdeMs, hastaMs,
+                desdeAntMs, hastaAntMs,
+                desdeMesMs, hastaMesMs,
+                reporte -> {
+
+                    int seriesActual = reporte.seriesActual;
+                    int coloresActual = reporte.coloresActual;
+                    int animalesActual = reporte.animalesActual;
+                    int objetosActual = reporte.objetosActual;
+
+                    int seriesAnterior = reporte.seriesAnterior;
+                    int coloresAnterior = reporte.coloresAnterior;
+                    int animalesAnterior = reporte.animalesAnterior;
+                    int objetosAnterior = reporte.objetosAnterior;
+
+                    String seriesTag = calcularTagComparacion(seriesActual, seriesAnterior);
+                    String coloresTag = calcularTagComparacion(coloresActual, coloresAnterior);
+                    String animalesTag = calcularTagComparacion(animalesActual, animalesAnterior);
+                    String objetosTag = calcularTagComparacion(objetosActual, objetosAnterior);
+
+                    int seriesTotalesMes = reporte.seriesTotalesMes;
+                    int aciertosTotalesMes = reporte.aciertosTotalesMes;
+
+                    // % Cumplimiento calculado basado en BD (Meta mensual: 150 aciertos)
+                    int metaMesAciertos = 150;
+                    int porcentajeCumplimiento = aciertosTotalesMes > 0 ? Math.min(100, (aciertosTotalesMes * 100) / metaMesAciertos) : 0;
+
+                    String nombreSemana;
+                    String rangoFechaText;
+                    String nombreMesText = "Octubre 2026";
+
+                    if (index == 0) {
+                        nombreSemana = "Semana Actual: 12 Oct - 18 Oct (Actual)";
+                        rangoFechaText = "12 Oct - 18 Oct, 2026";
+                    } else if (index == 1) {
+                        nombreSemana = "Semana Anterior: 05 Oct - 11 Oct";
+                        rangoFechaText = "05 Oct - 11 Oct, 2026";
+                    } else {
+                        nombreSemana = "Semana: 28 Sep - 04 Oct";
+                        rangoFechaText = "28 Sep - 04 Oct, 2026";
+                        nombreMesText = "Septiembre 2026";
+                    }
+
+                    MetricasData data = new MetricasData(
+                            nombreSemana,
+                            rangoFechaText,
+                            seriesActual, 6, seriesAnterior, seriesTag,
+                            coloresActual, 20, coloresAnterior, coloresTag,
+                            animalesActual, 22, animalesAnterior, animalesTag,
+                            objetosActual, 18, objetosAnterior, objetosTag,
+                            nombreMesText, seriesTotalesMes, aciertosTotalesMes, porcentajeCumplimiento
+                    );
+
+                    _metricasData.postValue(data);
+                    Log.i(TAG, "Métricas cargadas exitosamente desde Room SQLite para la semana " + index);
+                });
     }
 
     public void reiniciarMetricas() {
@@ -115,10 +158,10 @@ public class MetricasViewModel extends AndroidViewModel {
         repository.borrarMetricasPorUsuario("invitado@memory.com", () -> _metricasData.postValue(new MetricasData(
                 "Semana Actual: 12 Oct - 18 Oct (Actual)",
                 "12 Oct - 18 Oct, 2026",
-                0, 6, 6, "= En inicio",
-                0, 20, 18, "= En inicio",
-                0, 22, 22, "= En inicio",
-                0, 18, 18, "= En inicio",
+                0, 6, 0, "Sin datos",
+                0, 20, 0, "Sin datos",
+                0, 22, 0, "Sin datos",
+                0, 18, 0, "Sin datos",
                 "Octubre 2026", 0, 0, 0
         )));
     }

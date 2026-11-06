@@ -50,18 +50,35 @@ public class MetricaRepository {
         return metricaDao.obtenerPorUsuarioLiveData(correoValido);
     }
 
-    public void cargarMetricasSemana(String usuarioCorreo, long desdeMs, long hastaMs, MetricaCallback<MetricaCalculada> callback) {
+    public void cargarMetricasCompletas(String usuarioCorreo,
+                                        long desdeMs, long hastaMs,
+                                        long desdeAntMs, long hastaAntMs,
+                                        long desdeMesMs, long hastaMesMs,
+                                        MetricaCallback<MetricasReporte> callback) {
         executor.execute(() -> {
             String correoValido = (usuarioCorreo != null && !usuarioCorreo.trim().isEmpty()) ? usuarioCorreo.trim() : "invitado@memory.com";
-            int series = metricaDao.obtenerSeriesPorFecha(correoValido, desdeMs, hastaMs);
-            int colores = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "COLORES", desdeMs, hastaMs);
-            int animales = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "ANIMALES", desdeMs, hastaMs);
-            int objetos = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "OBJETOS", desdeMs, hastaMs);
-            int aciertosTotales = metricaDao.obtenerAciertosTotalesPorFecha(correoValido, desdeMs, hastaMs);
 
-            MetricaCalculada res = new MetricaCalculada(series, colores, animales, objetos, aciertosTotales);
+            int seriesActual = metricaDao.obtenerSeriesPorFecha(correoValido, desdeMs, hastaMs);
+            int coloresActual = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "COLORES", desdeMs, hastaMs);
+            int animalesActual = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "ANIMALES", desdeMs, hastaMs);
+            int objetosActual = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "OBJETOS", desdeMs, hastaMs);
+
+            int seriesAnterior = metricaDao.obtenerSeriesPorFecha(correoValido, desdeAntMs, hastaAntMs);
+            int coloresAnterior = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "COLORES", desdeAntMs, hastaAntMs);
+            int animalesAnterior = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "ANIMALES", desdeAntMs, hastaAntMs);
+            int objetosAnterior = metricaDao.obtenerAciertosPorCategoriaYFecha(correoValido, "OBJETOS", desdeAntMs, hastaAntMs);
+
+            int seriesTotalesMes = metricaDao.obtenerSeriesPorFecha(correoValido, desdeMesMs, hastaMesMs);
+            int aciertosTotalesMes = metricaDao.obtenerAciertosTotalesPorFecha(correoValido, desdeMesMs, hastaMesMs);
+
+            MetricasReporte reporte = new MetricasReporte(
+                    seriesActual, coloresActual, animalesActual, objetosActual,
+                    seriesAnterior, coloresAnterior, animalesAnterior, objetosAnterior,
+                    seriesTotalesMes, aciertosTotalesMes
+            );
+
             if (callback != null) {
-                callback.onResult(res);
+                callback.onResult(reporte);
             }
         });
     }
@@ -77,19 +94,33 @@ public class MetricaRepository {
         });
     }
 
-    public static class MetricaCalculada {
-        public final int series;
-        public final int colores;
-        public final int animales;
-        public final int objetos;
-        public final int aciertosTotales;
+    public static class MetricasReporte {
+        public final int seriesActual;
+        public final int coloresActual;
+        public final int animalesActual;
+        public final int objetosActual;
 
-        public MetricaCalculada(int series, int colores, int animales, int objetos, int aciertosTotales) {
-            this.series = series;
-            this.colores = colores;
-            this.animales = animales;
-            this.objetos = objetos;
-            this.aciertosTotales = aciertosTotales;
+        public final int seriesAnterior;
+        public final int coloresAnterior;
+        public final int animalesAnterior;
+        public final int objetosAnterior;
+
+        public final int seriesTotalesMes;
+        public final int aciertosTotalesMes;
+
+        public MetricasReporte(int seriesActual, int coloresActual, int animalesActual, int objetosActual,
+                               int seriesAnterior, int coloresAnterior, int animalesAnterior, int objetosAnterior,
+                               int seriesTotalesMes, int aciertosTotalesMes) {
+            this.seriesActual = seriesActual;
+            this.coloresActual = coloresActual;
+            this.animalesActual = animalesActual;
+            this.objetosActual = objetosActual;
+            this.seriesAnterior = seriesAnterior;
+            this.coloresAnterior = coloresAnterior;
+            this.animalesAnterior = animalesAnterior;
+            this.objetosAnterior = objetosAnterior;
+            this.seriesTotalesMes = seriesTotalesMes;
+            this.aciertosTotalesMes = aciertosTotalesMes;
         }
     }
 }

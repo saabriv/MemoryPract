@@ -64,7 +64,7 @@
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
-                            android:contentDescription="Reiniciar"
+                            android:contentDescription="@string/btn_reiniciar"
                             android:src="@drawable/ic_refresh"
                             app:tint="#5D4037" />
 
@@ -72,7 +72,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
-                            android:text="Reiniciar"
+                            android:text="@string/btn_reiniciar"
                             android:textColor="#5D4037"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Memory App"
+                        android:text="@string/memory_app"
                         android:textColor="@color/title_color"
                         android:textSize="28sp"
                         android:textStyle="bold" />
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Panel de Métricas y Objetivos"
+                        android:text="@string/subtitle_panel_metricas"
                         android:textColor="@color/subtitle_color"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -122,31 +122,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:contentDescription="Calendar"
-                                android:src="@drawable/ic_calendar"
-                                app:tint="#BE185D" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
-                                android:text="SELECCIONAR SEMANA"
-                                android:textColor="#BE185D"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
                         <TextView
                             android:id="@+id/tvSelectedWeekBadge"
                             android:layout_width="wrap_content"
@@ -156,10 +131,38 @@
                             android:background="@drawable/bg_pill_badge_pink"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="12 Oct - 18 Oct, 2026"
                             android:textColor="#BE185D"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/tvSelectedWeekBadge"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:contentDescription="@string/desc_calendar"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="#BE185D" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/label_seleccionar_semana"
+                                android:textColor="#BE185D"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </RelativeLayout>
 
                     <!-- Week Spinner Dropdown -->
@@ -195,37 +198,13 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_circle_white_translucent"
-                            android:contentDescription="Series"
+                            android:contentDescription="@string/desc_series"
                             android:padding="10dp"
                             android:src="@drawable/ic_layers"
                             app:tint="#FFFFFF" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iconSeries"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Series Realizadas"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Color → Animal → Objeto"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                            android:id="@+id/layoutSeriesValues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -237,7 +216,6 @@
                                 android:id="@+id/tvSeriesValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="8"
                                 android:textColor="#FFFFFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -246,9 +224,41 @@
                                 android:id="@+id/tvSeriesGoal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Objetivo: 6"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@id/iconSeries"
+                            android:layout_toStartOf="@id/layoutSeriesValues"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/title_series_realizadas"
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/subtitle_series_sub"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -268,16 +278,6 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvSeriesVsPrev"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:text="vs Semana Anterior (6)"
-                            android:textColor="#F3F4F6"
-                            android:textSize="13sp" />
-
-                        <TextView
                             android:id="@+id/tvSeriesTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -286,9 +286,22 @@
                             android:background="@drawable/bg_pill_badge_translucent"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="↗ Superado (+33%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvSeriesVsPrev"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/tvSeriesTag"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -313,37 +326,13 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_circle_white_translucent"
-                            android:contentDescription="Colores"
+                            android:contentDescription="@string/desc_colores"
                             android:padding="10dp"
                             android:src="@drawable/ic_palette"
                             app:tint="#FFFFFF" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iconColores"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Colores Acertados"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Categoría Colores"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                            android:id="@+id/layoutColoresValues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -355,7 +344,6 @@
                                 android:id="@+id/tvColoresValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="24"
                                 android:textColor="#FFFFFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -364,9 +352,41 @@
                                 android:id="@+id/tvColoresGoal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Objetivo: 20"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@id/iconColores"
+                            android:layout_toStartOf="@id/layoutColoresValues"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/title_colores_acertados"
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/subtitle_colores_sub"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -386,16 +406,6 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvColoresVsPrev"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:text="vs Semana Anterior (18)"
-                            android:textColor="#F3F4F6"
-                            android:textSize="13sp" />
-
-                        <TextView
                             android:id="@+id/tvColoresTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -404,9 +414,22 @@
                             android:background="@drawable/bg_pill_badge_translucent"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="↗ Superado (+33%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvColoresVsPrev"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/tvColoresTag"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -431,37 +454,13 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_circle_white_translucent"
-                            android:contentDescription="Animales"
+                            android:contentDescription="@string/desc_animales"
                             android:padding="10dp"
                             android:src="@drawable/ic_paw"
                             app:tint="#FFFFFF" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iconAnimales"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Animales Reconocidos"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Categoría Animales"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                            android:id="@+id/layoutAnimalesValues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -473,7 +472,6 @@
                                 android:id="@+id/tvAnimalesValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="19"
                                 android:textColor="#FFFFFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -482,9 +480,41 @@
                                 android:id="@+id/tvAnimalesGoal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Objetivo: 22"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@id/iconAnimales"
+                            android:layout_toStartOf="@id/layoutAnimalesValues"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/title_animales_reconocidos"
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/subtitle_animales_sub"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -504,16 +534,6 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvAnimalesVsPrev"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:text="vs Semana Anterior (22)"
-                            android:textColor="#F3F4F6"
-                            android:textSize="13sp" />
-
-                        <TextView
                             android:id="@+id/tvAnimalesTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -522,9 +542,22 @@
                             android:background="@drawable/bg_pill_badge_yellow"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="= Por debajo (-13%)"
                             android:textColor="#78350F"
                             android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvAnimalesVsPrev"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/tvAnimalesTag"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -549,37 +582,13 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_icon_circle_white_translucent"
-                            android:contentDescription="Objetos"
+                            android:contentDescription="@string/desc_objetos"
                             android:padding="10dp"
                             android:src="@drawable/ic_shapes"
                             app:tint="#FFFFFF" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="12dp"
-                            android:layout_toEndOf="@id/iconObjetos"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Objetos Identificados"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:text="Categoría Objetos"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
+                            android:id="@+id/layoutObjetosValues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -591,7 +600,6 @@
                                 android:id="@+id/tvObjetosValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="18"
                                 android:textColor="#FFFFFF"
                                 android:textSize="28sp"
                                 android:textStyle="bold" />
@@ -600,9 +608,41 @@
                                 android:id="@+id/tvObjetosGoal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Objetivo: 18"
-                                android:textColor="#F3F4F6"
-                                android:textSize="12sp" />
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@id/iconObjetos"
+                            android:layout_toStartOf="@id/layoutObjetosValues"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/title_objetos_identificados"
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/subtitle_objetos_sub"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -622,16 +662,6 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvObjetosVsPrev"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:text="vs Semana Anterior (18)"
-                            android:textColor="#F3F4F6"
-                            android:textSize="13sp" />
-
-                        <TextView
                             android:id="@+id/tvObjetosTag"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -640,9 +670,22 @@
                             android:background="@drawable/bg_pill_badge_translucent"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="✓ Igual (100%)"
                             android:textColor="#FFFFFF"
                             android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvObjetosVsPrev"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/tvObjetosTag"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -660,32 +703,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:contentDescription="Chart"
-                                android:src="@drawable/ic_pie_chart" />
-
-                            <TextView
-                                android:id="@+id/tvMonthlySummaryTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="Resumen Mensual (Octubre 2026)"
-                                android:textColor="#1F2937"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
                         <TextView
+                            android:id="@+id/chipConsolidado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
@@ -693,10 +712,38 @@
                             android:background="@drawable/bg_pill_badge_gray"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="Consolidado"
+                            android:text="@string/label_consolidado"
                             android:textColor="#6B7280"
                             android:textSize="12sp"
                             android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:layout_toStartOf="@id/chipConsolidado"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/desc_chart"
+                                android:src="@drawable/ic_pie_chart" />
+
+                            <TextView
+                                android:id="@+id/tvMonthlySummaryTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="#1F2937"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
                     </RelativeLayout>
 
                     <!-- Two stat boxes side by side -->
@@ -720,7 +767,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Series Totales Mes"
+                                android:text="@string/label_series_totales_mes"
                                 android:textColor="#6B7280"
                                 android:textSize="12sp" />
 
@@ -729,7 +776,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="28"
                                 android:textColor="#111827"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -748,7 +794,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Aciertos Totales"
+                                android:text="@string/label_aciertos_totales"
                                 android:textColor="#6B7280"
                                 android:textSize="12sp" />
 
@@ -757,7 +803,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="4dp"
-                                android:text="182"
                                 android:textColor="#EC407A"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
@@ -771,7 +816,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:gravity="center"
-                        android:text="✨ ¡Excelente ritmo! Tienes un 94% de cumplimiento de tus metas mensuales."
                         android:textColor="#4B5563"
                         android:textSize="13sp" />
 
@@ -785,7 +829,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_button_volver"
                     android:elevation="4dp"
-                    android:text="← Volver al Menú Principal"
+                    android:text="@string/btn_volver_menu_principal"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"

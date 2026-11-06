@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +13,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.memorypract.R;
-import com.example.memorypract.utils.ThemeUtils;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class ConfiguracionActivity extends BaseActivity {
@@ -27,8 +25,6 @@ public class ConfiguracionActivity extends BaseActivity {
     private TextView btnTextExtra;
     private TextView tvTextPreview;
 
-    private ImageView iconMoon;
-    private SwitchMaterial switchModoOscuro;
     private SwitchMaterial switchRecordatorios;
 
     private String selectedTextSize = "Mediano";
@@ -58,22 +54,19 @@ public class ConfiguracionActivity extends BaseActivity {
         btnTextExtra = findViewById(R.id.btnTextExtra);
         tvTextPreview = findViewById(R.id.tvTextPreview);
 
-        iconMoon = findViewById(R.id.iconMoon);
-        switchModoOscuro = findViewById(R.id.switchModoOscuro);
         switchRecordatorios = findViewById(R.id.switchRecordatorios);
 
         SharedPreferences prefs = getSharedPreferences("MemoryAppPrefs", MODE_PRIVATE);
         selectedTextSize = prefs.getString("TEXT_SIZE", "Mediano");
-        boolean modoOscuro = prefs.getBoolean("MODO_OSCURO", false);
         boolean recordatorios = prefs.getBoolean("RECORDATORIOS", true);
 
-        Log.i(TAG, "Preferencias cargadas: TEXT_SIZE=" + selectedTextSize + ", MODO_OSCURO=" + modoOscuro + ", RECORDATORIOS=" + recordatorios);
+        Log.i(TAG, "Preferencias cargadas: TEXT_SIZE=" + selectedTextSize + ", RECORDATORIOS=" + recordatorios);
 
-        switchModoOscuro.setChecked(modoOscuro);
-        switchRecordatorios.setChecked(recordatorios);
+        if (switchRecordatorios != null) {
+            switchRecordatorios.setChecked(recordatorios);
+        }
 
         updateTextSizeSelection(selectedTextSize);
-        updateDarkModeIcon(modoOscuro);
     }
 
     private void setupListeners() {
@@ -87,40 +80,20 @@ public class ConfiguracionActivity extends BaseActivity {
         btnTextGrande.setOnClickListener(v -> updateTextSizeSelection("Grande"));
         btnTextExtra.setOnClickListener(v -> updateTextSizeSelection("Extra"));
 
-        switchModoOscuro.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Log.i(TAG, "Switch Modo Oscuro cambiado a: " + isChecked);
-            updateDarkModeIcon(isChecked);
-        });
-
         findViewById(R.id.btnGuardar).setOnClickListener(v -> {
-            boolean modoOscuroVal = switchModoOscuro.isChecked();
-            boolean recordatoriosVal = switchRecordatorios.isChecked();
+            boolean recordatoriosVal = switchRecordatorios != null && switchRecordatorios.isChecked();
 
-            Log.i(TAG, "Guardando nuevas preferencias: TEXT_SIZE=" + selectedTextSize + ", MODO_OSCURO=" + modoOscuroVal + ", RECORDATORIOS=" + recordatoriosVal);
+            Log.i(TAG, "Guardando nuevas preferencias: TEXT_SIZE=" + selectedTextSize + ", RECORDATORIOS=" + recordatoriosVal);
 
             SharedPreferences prefs = getSharedPreferences("MemoryAppPrefs", MODE_PRIVATE);
             prefs.edit()
                     .putString("TEXT_SIZE", selectedTextSize)
-                    .putBoolean("MODO_OSCURO", modoOscuroVal)
                     .putBoolean("RECORDATORIOS", recordatoriosVal)
                     .apply();
-
-            ThemeUtils.setDarkMode(modoOscuroVal);
 
             Toast.makeText(ConfiguracionActivity.this, "Configuración guardada y aplicada", Toast.LENGTH_SHORT).show();
             finish();
         });
-    }
-
-    private void updateDarkModeIcon(boolean isDarkMode) {
-        Log.d(TAG, "Actualizando icono de modo oscuro a: " + isDarkMode);
-        if (isDarkMode) {
-            iconMoon.setImageResource(R.drawable.ic_sun);
-            iconMoon.setBackgroundResource(R.drawable.bg_icon_yellow);
-        } else {
-            iconMoon.setImageResource(R.drawable.ic_moon);
-            iconMoon.setBackgroundResource(R.drawable.bg_icon_purple);
-        }
     }
 
     private void updateTextSizeSelection(String option) {
