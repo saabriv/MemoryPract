@@ -9,15 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.memorypract.R;
+import com.example.memorypract.utils.ThemeUtils;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
-public class ConfiguracionActivity extends AppCompatActivity {
+public class ConfiguracionActivity extends BaseActivity {
 
     private static final String TAG = "ConfiguracionActivity";
 
@@ -104,6 +104,8 @@ public class ConfiguracionActivity extends AppCompatActivity {
                     .putBoolean("MODO_OSCURO", modoOscuroVal)
                     .putBoolean("RECORDATORIOS", recordatoriosVal)
                     .apply();
+
+            ThemeUtils.setDarkMode(modoOscuroVal);
 
             Toast.makeText(ConfiguracionActivity.this, "Configuración guardada y aplicada", Toast.LENGTH_SHORT).show();
             finish();

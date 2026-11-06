@@ -1,19 +1,24 @@
 package com.example.memorypract.ui.viewmodels;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.memorypract.data.modelos.ObjetoItem;
+import com.example.memorypract.data.repository.MetricaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjetosViewModel extends ViewModel {
+public class ObjetosViewModel extends AndroidViewModel {
 
     private static final String TAG = "ObjetosViewModel";
+
+    private final MetricaRepository metricaRepository;
 
     private final MutableLiveData<List<ObjetoItem>> _listaObjetos = new MutableLiveData<>(new ArrayList<>());
 
@@ -57,6 +62,11 @@ public class ObjetosViewModel extends ViewModel {
         return _isGameFinished;
     }
 
+    public ObjetosViewModel(@NonNull Application application) {
+        super(application);
+        metricaRepository = new MetricaRepository(application);
+    }
+
     public void inicializarObjetos(List<ObjetoItem> objetos) {
         List<ObjetoItem> actual = _listaObjetos.getValue();
         if (actual == null || actual.isEmpty()) {
@@ -90,11 +100,13 @@ public class ObjetosViewModel extends ViewModel {
             int newCount = (current != null ? current : 0) + 1;
             Log.i(TAG, "Respuesta registrada: CORRECTA. Total aciertos=" + newCount);
             _correctCount.setValue(newCount);
+            metricaRepository.registrarAcierto("invitado@memory.com", "OBJETOS", 1, 0);
         } else {
             Integer current = _incorrectCount.getValue();
             int newCount = (current != null ? current : 0) + 1;
             Log.w(TAG, "Respuesta registrada: INCORRECTA. Total errores=" + newCount);
             _incorrectCount.setValue(newCount);
+            metricaRepository.registrarAcierto("invitado@memory.com", "OBJETOS", 0, 1);
         }
     }
 
@@ -111,6 +123,7 @@ public class ObjetosViewModel extends ViewModel {
         } else {
             Log.i(TAG, "Se completaron todas las tarjetas de objetos. Finalizando juego.");
             _isGameFinished.setValue(true);
+            metricaRepository.registrarAcierto("invitado@memory.com", "SERIE_COMPLETA", 1, 0);
         }
     }
 

@@ -1,19 +1,24 @@
 package com.example.memorypract.ui.viewmodels;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.memorypract.data.modelos.AnimalItem;
+import com.example.memorypract.data.repository.MetricaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalesViewModel extends ViewModel {
+public class AnimalesViewModel extends AndroidViewModel {
 
     private static final String TAG = "AnimalesViewModel";
+
+    private final MetricaRepository metricaRepository;
 
     private final MutableLiveData<List<AnimalItem>> _listaAnimales = new MutableLiveData<>(new ArrayList<>());
     public LiveData<List<AnimalItem>> getListaAnimales() { return _listaAnimales; }
@@ -35,6 +40,11 @@ public class AnimalesViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> _isGameFinished = new MutableLiveData<>(false);
     public LiveData<Boolean> isGameFinished() { return _isGameFinished; }
+
+    public AnimalesViewModel(@NonNull Application application) {
+        super(application);
+        metricaRepository = new MetricaRepository(application);
+    }
 
     public void inicializarAnimales(List<AnimalItem> animales) {
         List<AnimalItem> actual = _listaAnimales.getValue();
@@ -69,11 +79,13 @@ public class AnimalesViewModel extends ViewModel {
             int newCount = (current != null ? current : 0) + 1;
             Log.i(TAG, "Respuesta registrada: CORRECTA. Total aciertos=" + newCount);
             _correctCount.setValue(newCount);
+            metricaRepository.registrarAcierto("invitado@memory.com", "ANIMALES", 1, 0);
         } else {
             Integer current = _incorrectCount.getValue();
             int newCount = (current != null ? current : 0) + 1;
             Log.w(TAG, "Respuesta registrada: INCORRECTA. Total errores=" + newCount);
             _incorrectCount.setValue(newCount);
+            metricaRepository.registrarAcierto("invitado@memory.com", "ANIMALES", 0, 1);
         }
     }
 
@@ -90,6 +102,7 @@ public class AnimalesViewModel extends ViewModel {
         } else {
             Log.i(TAG, "Se completaron todas las tarjetas de animales. Finalizando juego.");
             _isGameFinished.setValue(true);
+            metricaRepository.registrarAcierto("invitado@memory.com", "SERIE_COMPLETA", 1, 0);
         }
     }
 

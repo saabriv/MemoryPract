@@ -1,21 +1,26 @@
 package com.example.memorypract.ui.viewmodels;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.memorypract.data.modelos.ColorItem;
+import com.example.memorypract.data.repository.MetricaRepository;
 import com.example.memorypract.utils.GameConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ColoresViewModel extends ViewModel {
+public class ColoresViewModel extends AndroidViewModel {
 
     private static final String TAG = "ColoresViewModel";
+
+    private final MetricaRepository metricaRepository;
 
     private final List<ColorItem> todosLosColores = new ArrayList<>();
 
@@ -26,6 +31,13 @@ public class ColoresViewModel extends ViewModel {
 
     private final MutableLiveData<List<ColorItem>> _colorItems = new MutableLiveData<>();
     public LiveData<List<ColorItem>> getColorItems() { return _colorItems; }
+
+    public ColoresViewModel(@NonNull Application application) {
+        super(application);
+        Log.d(TAG, "Creando ColoresViewModel");
+        metricaRepository = new MetricaRepository(application);
+        initGame();
+    }
 
     public void verificarColor(String colorSeleccionado) {
         if (Boolean.TRUE.equals(_isProcessing.getValue())) {
@@ -40,6 +52,8 @@ public class ColoresViewModel extends ViewModel {
 
         if (esCorrecto) {
             Log.i(TAG, "Verificación exitosa: Color seleccionado=" + colorSeleccionado + " coincide con el objetivo=" + colorCorrecto);
+            metricaRepository.registrarAcierto("invitado@memory.com", "COLORES", 1, 0);
+
             Integer tanda = _tandaActual.getValue();
             if(tanda == null) tanda = 0;
             int tamanoTanda = 4;
@@ -47,6 +61,7 @@ public class ColoresViewModel extends ViewModel {
             _verificationEvent.setValue(new VerificationResult(colorSeleccionado, true, esUltimaTanda));
         } else {
             Log.w(TAG, "Verificación errónea: Color seleccionado=" + colorSeleccionado + ", se esperaba=" + colorCorrecto);
+            metricaRepository.registrarAcierto("invitado@memory.com", "COLORES", 0, 1);
             _verificationEvent.setValue(new VerificationResult(colorSeleccionado, false, false));
         }
     }
@@ -105,11 +120,6 @@ public class ColoresViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> _isProcessing = new MutableLiveData<>(false);
     public LiveData<Boolean> getIsProcessing() { return _isProcessing; }
-
-    public ColoresViewModel() {
-        Log.d(TAG, "Creando ColoresViewModel");
-        initGame();
-    }
 
     public void initGame() {
         Log.d(TAG, "Inicializando lista de colores del juego");
