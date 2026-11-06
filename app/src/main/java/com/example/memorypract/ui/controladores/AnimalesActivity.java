@@ -2,6 +2,7 @@ package com.example.memorypract.ui.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +28,8 @@ import java.util.List;
 
 public class AnimalesActivity extends BaseActivity {
 
+    private static final String TAG = "AnimalesActivity";
+
     private AnimalesViewModel viewModel;
 
     private CardView cardFlashcard;
@@ -39,6 +42,7 @@ public class AnimalesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: Inicializando AnimalesActivity");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_animales);
 
@@ -51,15 +55,20 @@ public class AnimalesActivity extends BaseActivity {
         viewModel = new ViewModelProvider(this).get(AnimalesViewModel.class);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> {
+            Log.i(TAG, "Volviendo al menú principal (MainActivity)");
             Intent intent = new Intent(AnimalesActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
+
         findViewById(R.id.btnColores).setOnClickListener(v -> {
+            Log.i(TAG, "Cambiando a categoría Colores desde navegación inferior");
             Intent intent = new Intent(AnimalesActivity.this, ColoresActivity.class);
             startActivity(intent);
         });
+
         findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Log.i(TAG, "Cambiando a categoría Objetos desde navegación inferior");
             Intent intent = new Intent(AnimalesActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
@@ -85,24 +94,38 @@ public class AnimalesActivity extends BaseActivity {
         lista.add(new AnimalItem(getString(R.string.animal_leon), R.drawable.leon));
         lista.add(new AnimalItem(getString(R.string.animal_jirafa), R.drawable.jirafa));
 
+        Log.d(TAG, "Inicializando lista de " + lista.size() + " animales en ViewModel");
         viewModel.inicializarAnimales(lista);
 
-        viewModel.getCurrentIndex().observe(this, index -> actualizarVistaCard());
-        viewModel.isFlipped().observe(this, flipped -> actualizarEstructuraCard(Boolean.TRUE.equals(flipped)));
+        viewModel.getCurrentIndex().observe(this, index -> {
+            Log.d(TAG, "Observador currentIndex cambió a: " + index);
+            actualizarVistaCard();
+        });
+
+        viewModel.isFlipped().observe(this, flipped -> {
+            Log.d(TAG, "Observador isFlipped cambió a: " + flipped);
+            actualizarEstructuraCard(Boolean.TRUE.equals(flipped));
+        });
 
         viewModel.isGameFinished().observe(this, finished -> {
             if (Boolean.TRUE.equals(finished)) {
+                Log.i(TAG, "Observador isGameFinished: El juego ha terminado");
                 mostrarResumenFinal();
             }
         });
 
         cardFlashcard.setOnClickListener(v -> {
-            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue()) || Boolean.TRUE.equals(viewModel.isFlipped().getValue())) return;
+            if (Boolean.TRUE.equals(viewModel.isAnimating().getValue()) || Boolean.TRUE.equals(viewModel.isFlipped().getValue())) {
+                Log.d(TAG, "Flashcard tocada pero ignorada: animando o ya volteada");
+                return;
+            }
+            Log.d(TAG, "Flashcard tocada: Iniciando animación de volteo");
             voltearTarjeta();
         });
 
         btnCorrecto.setOnClickListener(v -> {
             if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            Log.i(TAG, "Botón CORRECTO presionado");
             viewModel.registrarRespuesta(true);
             Toast.makeText(this, R.string.message_correct, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
@@ -110,6 +133,7 @@ public class AnimalesActivity extends BaseActivity {
 
         btnIncorrecto.setOnClickListener(v -> {
             if (Boolean.TRUE.equals(viewModel.isAnimating().getValue())) return;
+            Log.w(TAG, "Botón INCORRECTO presionado");
             viewModel.registrarRespuesta(false);
             Toast.makeText(this, R.string.message_incorrect, Toast.LENGTH_SHORT).show();
             avanzarSiguienteTarjeta();
@@ -138,6 +162,7 @@ public class AnimalesActivity extends BaseActivity {
     }
 
     private void avanzarSiguienteTarjeta() {
+        Log.d(TAG, "Iniciando animación para avanzar a la siguiente tarjeta");
         viewModel.setAnimating(true);
         cardFlashcard.animate()
                 .translationX(-400f)
@@ -176,6 +201,8 @@ public class AnimalesActivity extends BaseActivity {
         List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
         int total = lista != null ? lista.size() : 0;
 
+        Log.i(TAG, "Mostrando diálogo resumen final: Correctas=" + correctas + ", Incorrectas=" + incorrectas + ", Total=" + total);
+
         String mensaje = "¡Juego completado!\n\n" +
                 "✅ Correctas: " + correctas + "\n" +
                 "❌ Incorrectas: " + incorrectas + "\n" +
@@ -185,10 +212,12 @@ public class AnimalesActivity extends BaseActivity {
                 .setTitle("Resumen de Resultados")
                 .setMessage(mensaje)
                 .setPositiveButton("Volver a intentarlo", (dialog, which) -> {
+                    Log.i(TAG, "Reintento de juego seleccionado desde el diálogo resumen");
                     viewModel.reiniciarJuego();
                     actualizarVistaCard();
                 })
                 .setNegativeButton("Volver al inicio", (dialog, which) -> {
+                    Log.i(TAG, "Volviendo al inicio desde el diálogo resumen");
                     Intent intent = new Intent(AnimalesActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
@@ -199,12 +228,17 @@ public class AnimalesActivity extends BaseActivity {
 
     private void actualizarVistaCard() {
         AnimalItem animal = viewModel.getAnimalActual();
-        if (animal == null) return;
+        if (animal == null) {
+            Log.w(TAG, "actualizarVistaCard: Animal actual es nulo");
+            return;
+        }
 
         List<AnimalItem> lista = viewModel.getListaAnimales().getValue();
         Integer index = viewModel.getCurrentIndex().getValue();
         int currentIndexVal = index != null ? index : 0;
         int total = lista != null ? lista.size() : 0;
+
+        Log.d(TAG, "Actualizando vista de tarjeta para animal: " + animal.getNombre() + " (" + (currentIndexVal + 1) + "/" + total + ")");
 
         imgAnimal.setImageResource(animal.getImagenResId());
         txtAnimalName.setText(animal.getNombre());
@@ -222,6 +256,7 @@ public class AnimalesActivity extends BaseActivity {
     }
 
     private void actualizarEstructuraCard(boolean isFlipped) {
+        Log.d(TAG, "actualizarEstructuraCard: isFlipped=" + isFlipped);
         if (isFlipped) {
             layoutFront.setVisibility(View.GONE);
             layoutBack.setVisibility(View.VISIBLE);

@@ -1,11 +1,8 @@
 package com.example.memorypract.ui.adaptadores;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +15,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     public interface OnColorClickListener {
         void onColorClick(ColorItem colorItem, View borderView);
     }
-    private List<ColorItem> listaColoresItems;
-    private OnColorClickListener listener;
+    private final List<ColorItem> listaColoresItems;
+    private final OnColorClickListener listener;
 
     public ColorAdapter(List<ColorItem> listaColoresItems, OnColorClickListener listener) {
         this.listaColoresItems = listaColoresItems;
@@ -50,8 +47,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     }
 
     public static class ColorViewHolder extends RecyclerView.ViewHolder {
-        CardView cardColor;
-        View borderColor;
+        private final CardView cardColor;
+        private final View borderColor;
 
         public ColorViewHolder(@NonNull View itemView) {
             super(itemView);

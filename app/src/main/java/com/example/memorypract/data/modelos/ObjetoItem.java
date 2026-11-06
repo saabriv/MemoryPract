@@ -3,11 +3,13 @@ package com.example.memorypract.data.modelos;
 public class ObjetoItem {
         private String nombre;
         private int imagenResId;
+        private boolean isFlipped;
 
 
         public ObjetoItem(String nombre, int imagenResId) {
             this.nombre = nombre;
             this.imagenResId = imagenResId;
+            this.isFlipped = false;
         }
 
         public String getNombre() {
@@ -17,5 +19,12 @@ public class ObjetoItem {
         public int getImagenResId() {
             return imagenResId;
         }
+    public boolean isFlipped() {
+        return isFlipped;
+    }
+
+    public void setFlipped(boolean flipped) {
+        isFlipped = flipped;
+    }
 
 }

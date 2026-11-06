@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MemoryPract</string>
+    <string name="main_title">Memory Pract</string>
+    <string name="select_category">Seleccione una categoría</string>
     <string name="category_animales">ANIMALES</string>
     <string name="category_objetos">OBJETOS</string>
     <string name="category_colores">COLORES</string>
@@ -18,6 +20,26 @@
     <string name="animal_elefante">Elefante</string>
     <string name="animal_leon">León</string>
     <string name="animal_jirafa">Jirafa</string>
+    <string name="objeto_alumnos_jpg">Alumnos</string>
+    <string name="objeto_botas">Botas</string>
+    <string name="objeto_cartuchera">Cartuchera</string>
+    <string name="objeto_hoja">Hoja</string>
+    <string name="objeto_nido">Nido</string>
+    <string name="objeto_nube">Nube</string>
+    <string name="objeto_paraguas">Paraguas</string>
+    <string name="objeto_pizarron">Pizarrón</string>
+    <string name="objeto_profesor">Profesor</string>
+    <string name="objeto_raiz">Raíz</string>
+    <string name="objeto_tronco">Tronco</string>
+
+    <string name="category_animales_title">Animales</string>
+    <string name="category_animales_desc">Identifica y empareja diferentes animales.</string>
+    <string name="category_colores_title">Colores</string>
+    <string name="category_colores_desc">Aprende y clasifica colores y matices.</string>
+    <string name="category_objetos_title">Objetos</string>
+    <string name="category_objetos_desc">Entrena con objetos de la vida cotidiana.</string>
+    <string name="category_seguimiento_title">Seguimiento</string>
+    <string name="category_seguimiento_desc">Revisa tu progreso y logros diarios.</string>
 
     <string name="guess_word">Adiviná la palabra:</string>
     <string name="observe_images">Observá las imágenes:</string>
@@ -27,4 +49,5 @@
     <string name="incorrect_word">Inténtalo de nuevo.</string>
     <string name="btn_back_desc">Volver</string>
     <string name="object_img_desc">Objeto %1$d</string>
+
 </resources>

@@ -3,6 +3,7 @@ package com.example.memorypract.ui.controladores;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ import nl.dionsegijn.konfetti.xml.KonfettiView;
 
 public class ColoresActivity extends BaseActivity {
 
+    private static final String TAG = "ColoresActivity";
+
     private ColoresViewModel viewModel;
     private TextView txtColorAdivinar;
     private TextView txtFeedback;
@@ -38,6 +41,7 @@ public class ColoresActivity extends BaseActivity {
     private View lastBorderView;
 
     private void lanzarConfeti() {
+        Log.i(TAG, "Lanzando animación de confeti");
         EmitterConfig emitterConfig = new Emitter(100L, TimeUnit.MILLISECONDS).max(100);
         Party party = new PartyFactory(emitterConfig)
                 .angle(270)
@@ -68,6 +72,7 @@ public class ColoresActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: Inicializando ColoresActivity");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_colores);
 
@@ -85,30 +90,36 @@ public class ColoresActivity extends BaseActivity {
         viewModel = new ViewModelProvider(this).get(ColoresViewModel.class);
 
         findViewById(R.id.btnBack).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando de vuelta a MainActivity");
             Intent intent = new Intent(ColoresActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
 
         findViewById(R.id.btnAnimales).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando a AnimalesActivity desde la barra inferior");
             Intent intent = new Intent(ColoresActivity.this, AnimalesActivity.class);
             startActivity(intent);
         });
 
         findViewById(R.id.btnObjetos).setOnClickListener(v -> {
+            Log.i(TAG, "Navegando a PantallaobjetosActivity desde la barra inferior");
             Intent intent = new Intent(ColoresActivity.this, PantallaobjetosActivity.class);
             startActivity(intent);
         });
 
         viewModel.getColorToGuess().observe(this, color -> {
             if (color != null) {
+                Log.d(TAG, "Color a adivinar actualizado: " + color);
                 txtColorAdivinar.setText(color);
             }
         });
 
         viewModel.getColorItems().observe(this, items -> {
             if (items != null) {
+                Log.d(TAG, "Cargando " + items.size() + " opciones de colores en el RecyclerView");
                 ColorAdapter adapter = new ColorAdapter(items, (colorItem, borderView) -> {
+                    Log.i(TAG, "Color seleccionado por el usuario: " + colorItem.getNombre());
                     lastBorderView = borderView;
                     viewModel.verificarColor(colorItem.getNombre());
                 });
@@ -121,7 +132,8 @@ public class ColoresActivity extends BaseActivity {
 
             final View borderView = lastBorderView;
 
-            if (result.isCorrect) {
+            if (result.isCorrect()) {
+                Log.i(TAG, "Resultado verificación: CORRECTO (" + result.getColorSeleccionado() + ")");
                 if (borderView != null) {
                     borderView.setBackgroundResource(R.drawable.border_correct);
                 }
@@ -140,12 +152,14 @@ public class ColoresActivity extends BaseActivity {
 
                     viewModel.finalizarVerificacion(true);
 
-                    if (result.isCompleted) {
+                    if (result.isCompleted()) {
+                        Log.i(TAG, "Juego de Colores completado. Mostrando mensaje de felicitaciones.");
                         Toast.makeText(this, R.string.message_complete, Toast.LENGTH_LONG).show();
                     }
                 }, 1500);
 
             } else {
+                Log.w(TAG, "Resultado verificación: INCORRECTO (" + result.getColorSeleccionado() + ")");
                 if (borderView != null) {
                     borderView.setBackgroundResource(R.drawable.border_incorrect);
                 }

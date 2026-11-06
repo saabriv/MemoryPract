@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MemoryPract</string>
+    <string name="main_title">Memory Pract</string>
+    <string name="select_category">Select a category</string>
 
     <string name="category_animales">Animals</string>
     <string name="category_objetos">Objects</string>
@@ -21,6 +23,15 @@
     <string name="animal_leon">Lion</string>
     <string name="animal_jirafa">Giraffe</string>
 
+    <string name="category_animales_title">Animals</string>
+    <string name="category_animales_desc">Identify and match different animals.</string>
+    <string name="category_colores_title">Colors</string>
+    <string name="category_colores_desc">Learn and classify colors and shades.</string>
+    <string name="category_objetos_title">Objects</string>
+    <string name="category_objetos_desc">Train with everyday objects.</string>
+    <string name="category_seguimiento_title">Tracking</string>
+    <string name="category_seguimiento_desc">Review your progress and daily achievements.</string>
+
     <string name="guess_word">Guess the word:</string>
     <string name="observe_images">Observe the images:</string>
     <string name="btn_delete">Delete</string>
@@ -29,4 +40,16 @@
     <string name="incorrect_word">Try again.</string>
     <string name="btn_back_desc">Back</string>
     <string name="object_img_desc">Object %1$d</string>
+
+    <string name="objeto_alumnos_jpg">Students</string>
+    <string name="objeto_botas">Boots</string>
+    <string name="objeto_cartuchera">Pencil Case</string>
+    <string name="objeto_hoja">Leaf</string>
+    <string name="objeto_nido">Nest</string>
+    <string name="objeto_nube">Cloud</string>
+    <string name="objeto_paraguas">Umbrella</string>
+    <string name="objeto_pizarron">Blackboard</string>
+    <string name="objeto_profesor">Teacher</string>
+    <string name="objeto_raiz">Root</string>
+    <string name="objeto_tronco">Trunk</string>
 </resources>
