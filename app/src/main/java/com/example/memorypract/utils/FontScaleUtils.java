@@ -23,6 +23,9 @@ public class FontScaleUtils {
 
     public static Context applyFontScale(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("MemoryAppPrefs", Context.MODE_PRIVATE);
+        if (!prefs.contains("TEXT_SIZE")) {
+            prefs.edit().putString("TEXT_SIZE", "Mediano").apply();
+        }
         String option = prefs.getString("TEXT_SIZE", "Mediano");
         float fontScale = getFontScaleForOption(option);
 
